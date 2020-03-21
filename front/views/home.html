@@ -27,36 +27,23 @@
 								</v-card>
 							</v-col>
 
-
 							<v-col
 							cols="8"
 							>
 								<v-card
+								v-for="src in podcastSrc" 
+								:key="src"
 								outlined
 								tile
 								>
-								ici
+								{{src}}
+								</br>
 
-								<div v-if="showPodcast" >
-
-									hello ici
-
-									<!-- {{podcastSrc[0]}} -->
-
-<!-- <ol> -->
-    <!-- <li v-for="src in podcastSrc"> -->
-		<!-- hello -->
-      <!-- {{ src }} -->
-    <!-- </li> -->
-  <!-- </ol> -->
-
-
-									<audio controls v-for="src in podcastSrc" >
+									<audio controls >
 										<!-- <source src="http://chardin-computing.freeboxos.fr:3000/static/podcast/Day 1.mp3" type="audio/mpeg"> -->
 										<source :src="buildSrc(src)" type="audio/mpeg">
 										Your browser does not support the audio element.
 									</audio>
-								</div>
 
 								</v-card>
 							</v-col>
@@ -85,7 +72,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
 
 <script charset="utf-8">
