@@ -1,12 +1,14 @@
-'use strict'
-
 const express = require('express');
+const fs = require('fs');
 
-module.exports = class userController {
+module.exports = class homeController {
 
-	static home(req, res){
-  	  	  res.send('Hello le World, les chardin, et Laeti !');
-	 }
-
+	static getPodcast(req, res){
+		var podcastFolder = SRC + '/public/podcast';
+		console.log(podcastFolder);
+		fs.readdir(podcastFolder, (err, files) => {
+			res.send(files);
+		});
+	}
 
 }

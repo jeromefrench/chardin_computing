@@ -17,8 +17,7 @@
 
 						<v-row no-gutters >
 							<v-col
-							cols="12"
-							sm="2"
+							cols="2"
 							>
 								<v-card
 								outlined
@@ -30,8 +29,7 @@
 
 
 							<v-col
-							cols="12"
-							sm="8"
+							cols="8"
 							>
 								<v-card
 								outlined
@@ -39,25 +37,33 @@
 								>
 								ici
 
-								<audio controls>
-									<source src="horse.ogg" type="audio/ogg">
-									<source src="horse.mp3" type="audio/mpeg">
-									Your browser does not support the audio element.
-								</audio>
+								<div v-if="showPodcast" >
+
+									hello ici
+
+									<!-- {{podcastSrc[0]}} -->
+
+<!-- <ol> -->
+    <!-- <li v-for="src in podcastSrc"> -->
+		<!-- hello -->
+      <!-- {{ src }} -->
+    <!-- </li> -->
+  <!-- </ol> -->
 
 
+									<audio controls v-for="src in podcastSrc" >
+										<!-- <source src="http://chardin-computing.freeboxos.fr:3000/static/podcast/Day 1.mp3" type="audio/mpeg"> -->
+										<source :src="buildSrc(src)" type="audio/mpeg">
+										Your browser does not support the audio element.
+									</audio>
+								</div>
 
 								</v-card>
 							</v-col>
 
 
-
-
-
-
 							<v-col
-							cols="12"
-							sm="2"
+							cols="2"
 							>
 								<v-card
 								outlined
@@ -70,8 +76,6 @@
 						</v-row>
 
 					</v-container>
-
-
 
 				</v-content>
 			</v-app>
@@ -90,19 +94,29 @@ var app = new Vue({
 	el: '#app',
 	vuetify: new Vuetify(),
 	data: {
-		message: 'Hello Vue!'
+		message: 'Hello Vue!',
+		podcastSrc: null,
+		showPodcast: false,
 	},
 	methods: {
 		getPodcast: function(){
-			axios.get('/test', {
+			axios.get('http://chardin-computing.freeboxos.fr:3000/podcast', {
 			})
-			.then(function (response) {
-				console.log(response);
+			.then((response)=> {
+				this.podcastSrc = response.data;
+				console.log(this.podcastSrc);
+				console.log(this.showPodcast);
+				this.showPodcast = true;
+				console.log(this.showPodcast);
+				console.log("hello");
 			})
 			.catch(function (error) {
 				console.log(error);
 			})
 		},
+		buildSrc: function(src){
+			return "http://chardin-computing.freeboxos.fr:3000/static/podcast/" + src;
+		}
 	},
 	mounted: function() {
 		this.getPodcast();
