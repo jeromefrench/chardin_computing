@@ -20,7 +20,7 @@ app.get('/test', function (req, res) { res.send('test back'); });
 app.get('/podcast', controller.home.getPodcast);
 
 
-PORT = process.env.PORT | 3000;
+PORT = process.env.PORT || 3000;
 
 console.log("Server back listening on port " + PORT);
 app.listen(PORT);
