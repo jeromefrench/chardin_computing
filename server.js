@@ -1,4 +1,5 @@
 SRC = __dirname;
+require('dotenv').config();
 console.log(SRC);
 
 const express = require('express');
