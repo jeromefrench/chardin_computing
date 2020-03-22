@@ -6,6 +6,25 @@ const express = require('express');
 const app = express();
 const controller = require(SRC+'/controller/index.js');
 
+const Sequelize = require('sequelize');
+
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWD, {
+  host: process.env.DB_HOST,
+  dialect: 'postgres'
+});
+
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+
+
+
+
 app.use('/static', express.static(SRC + '/public'));
 
 app.use(function(req, res, next) {
@@ -16,7 +35,7 @@ app.use(function(req, res, next) {
 
 
 
-app.get('/test', function (req, res) { res.send('test back'); });
+app.get('/test', (req, res) => { res.send('test back'); });
 app.get('/podcast', controller.home.getPodcast);
 
 
