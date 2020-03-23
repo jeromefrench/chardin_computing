@@ -6,6 +6,7 @@ const app = express();
 
 app.get('/test', function (req, res) { res.send('test front'); });
 app.get('/', function (req, res) { res.sendFile(views + 'home.html'); });
+app.get('/adminPodcast', function (req, res) { res.sendFile(views + 'adminPodcast.html'); });
 
 
 console.log("Server listening on port 8080");

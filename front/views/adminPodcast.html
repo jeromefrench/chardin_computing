@@ -11,9 +11,9 @@
 		<div id="app">
 			<v-app>
 				<v-content>
-					<v-container>Hello world {{ message }} </v-container>
+					<v-container>Hello world </v-container>
 
-					<v-container>Hello world 
+					<v-container>Hello world
 
 						<v-row no-gutters >
 							<v-col
@@ -31,19 +31,52 @@
 							cols="8"
 							>
 								<v-card
-								v-for="src in podcastSrc" 
-								:key="src"
 								outlined
 								tile
 								>
-								{{src}}
-								</br>
+								ici
 
-									<audio controls >
-										<!-- <source src="http://chardin-computing.freeboxos.fr:3000/static/podcast/Day 1.mp3" type="audio/mpeg"> -->
-										<source :src="buildSrc(src)" type="audio/mpeg">
-										Your browser does not support the audio element.
-									</audio>
+									<v-text-field
+									v-model="pathName"
+									label="Path name"
+									></v-text-field>
+
+
+									<v-menu
+									v-model="menu2"
+									:close-on-content-click="false"
+									:nudge-right="40"
+									transition="scale-transition"
+									offset-y
+									min-width="290px"
+									>
+
+										<template v-slot:activator="{ on }">
+											<v-text-field
+											v-model="date"
+											label="Picker without buttons"
+											readonly
+											v-on="on"
+											></v-text-field>
+										</template>
+										<v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
+
+									</v-menu>
+
+
+
+									<v-text-field
+									v-model="country"
+									label="Country"
+									></v-text-field>
+
+									<v-btn
+									color="success"
+									@click="validate"
+									>
+									Validate
+									</v-btn>
+
 
 								</v-card>
 							</v-col>
@@ -80,32 +113,32 @@ var app = new Vue({
 	el: '#app',
 	vuetify: new Vuetify(),
 	data: {
-		message: 'Hello Vue!',
-		podcastSrc: null,
-		showPodcast: false,
+		pathName: null,
+		date: new Date().toISOString().substr(0, 10),
+		country: null,
+		menu: false,
+		modal: false,
+		menu2: false,
 	},
 	methods: {
-		getPodcast(){
-			axios.get('http://chardin-computing.freeboxos.fr:3000/podcast', {
+		postPodcast(){
+			axios.post('http://chardin-computing.freeboxos.fr:3000/podcast', {
+				pathName: this.pathName,
+				date: this.date,
+				country: this.country
 			})
 			.then((response)=> {
-				this.podcastSrc = response.data;
-				console.log(this.podcastSrc);
-				console.log(this.showPodcast);
-				this.showPodcast = true;
-				console.log(this.showPodcast);
-				console.log("hello");
 			})
 			.catch(function (error) {
 				console.log(error);
 			})
 		},
-		buildSrc(src){
-			return "http://chardin-computing.freeboxos.fr:3000/static/podcast/" + src;
+		validate(){
+			this.postPodcast();
 		}
 	},
 	mounted: function() {
-		this.getPodcast();
+		//this.getPodcast();
 	}
 })
 

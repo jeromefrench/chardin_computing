@@ -4,24 +4,15 @@ console.log(SRC);
 
 const express = require('express');
 const app = express();
-const controller = require(SRC+'/controller/index.js');
+const controller = require(SRC +'/controller/index.js');
+var bodyParser = require('body-parser');
 
-const Sequelize = require('sequelize');
+// parse application/json
+app.use(bodyParser.json())
+const db = require(SRC + '/config/database.js');
 
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWD, {
-  host: process.env.DB_HOST,
-  dialect: 'postgres'
-});
-
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
-  });
-
+//force a creer la table
+db.sync();
 
 
 
@@ -34,9 +25,9 @@ app.use(function(req, res, next) {
 });
 
 
-
 app.get('/test', (req, res) => { res.send('test back'); });
-app.get('/podcast', controller.home.getPodcast);
+app.get('/podcast', controller.podcast.listPodcast);
+app.post('/podcast', controller.podcast.postPodcast);
 
 
 const PORT = process.env.PORT || 3000;

@@ -1,4 +1,4 @@
-const home  = require('./home.js');
+const podcast  = require('./podcast.js');
 
 
-module.exports = {home};
+module.exports = {podcast};
