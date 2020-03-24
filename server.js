@@ -29,6 +29,7 @@ app.get('/test', (req, res) => { res.send('test back'); });
 app.get('/podcast', controller.podcast.listPodcast);
 app.post('/podcast',
 	controller.podcast.validationPostRules(),
+	controller.podcast.validate,
 	controller.podcast.postPodcast);
 
 

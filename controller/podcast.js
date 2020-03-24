@@ -2,7 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const db = require(SRC + '/config/database.js');
 const { check, validationResult } = require('express-validator')
-const Essai = require(SRC + '/model/podcast.js')
+const Podcast = require(SRC + '/model/podcast.js')
 
 module.exports = class homeController {
 
@@ -18,7 +18,6 @@ module.exports = class homeController {
 		res.send('hello');
 		Essai.findAll()
 		.then((result) => {
-			console.log("********************");
 			console.log(result);
 			console.log("********************");
 		})
@@ -29,7 +28,9 @@ module.exports = class homeController {
 
 	static validationPostRules(){
 		return [
-			check('pathName').isAlpha().isLength({min: 3, max: 255})
+			check('pathName').isString().bail().isLength({min: 3, max: 255}),
+			check('date').isISO8601(),
+			check('country').isString().bail().isLength({min: 3, max: 255}),
 		]
 	}
 
@@ -40,21 +41,20 @@ module.exports = class homeController {
 		}
 		const extractedErrors = []
 		errors.array().map(err => extractedErrors.push({ [err.param]: err.msg }))
-
 		return res.status(422).json({
 			errors: extractedErrors,
 		})
 	}
 
-	static postPodcast(req, res){
-		console.log("postPodcast");
+	static async postPodcast(req, res){
+		let {pathName, date, country} =  req.body;
+		let result = await Podcast.findOne({where: {'pathName': pathName}});
+		if (!result)
+			Podcast.build({pathName, date, country}).save();
+		else
+			Podcast.update({pathName, date, country}).save();
 
-		var errors = validationResult(req).array();
-		console.log(req.body.pathName);
-		console.log(errors);
 		res.send(req.body);
-
 	}
-
 
 }

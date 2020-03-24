@@ -2,22 +2,16 @@ const Sequelize = require('sequelize');
 const db = require(SRC + '/config/database.js');
 
 
-const Essai = db.define('essai', {
-	title: {
+const Podcast = db.define('podcast', {
+	pathName: {
 		type: Sequelize.STRING
 	},
-	technologies: {
-		type: Sequelize.STRING
+	date: {
+		type: Sequelize.DATE
 	},
-	description: {
-		type: Sequelize.STRING
-	},
-	budget: {
-		type: Sequelize.STRING
-	},
-	contact_email: {
+	country: {
 		type: Sequelize.STRING
 	}
 });
 
-module.exports = Essai;
+module.exports = Podcast;
