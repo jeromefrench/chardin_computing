@@ -1,6 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const db = require(SRC + '/config/database.js');
+const { check, validationResult } = require('express-validator')
 const Essai = require(SRC + '/model/podcast.js')
 
 module.exports = class homeController {
@@ -26,10 +27,33 @@ module.exports = class homeController {
 		})
 	}
 
+	static validationPostRules(){
+		return [
+			check('pathName').isAlpha().isLength({min: 3, max: 255})
+		]
+	}
+
+	static validate(req, res, next){
+		const errors = validationResult(req)
+		if (errors.isEmpty()) {
+			return next()
+		}
+		const extractedErrors = []
+		errors.array().map(err => extractedErrors.push({ [err.param]: err.msg }))
+
+		return res.status(422).json({
+			errors: extractedErrors,
+		})
+	}
+
 	static postPodcast(req, res){
-		console.log("post podcast");
-		console.log(req.body);
+		console.log("postPodcast");
+
+		var errors = validationResult(req).array();
+		console.log(req.body.pathName);
+		console.log(errors);
 		res.send(req.body);
+
 	}
 
 

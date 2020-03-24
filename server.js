@@ -6,14 +6,14 @@ const express = require('express');
 const app = express();
 const controller = require(SRC +'/controller/index.js');
 var bodyParser = require('body-parser');
+const { check, validationResult } = require('express-validator')
 
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 const db = require(SRC + '/config/database.js');
 
 //force a creer la table
 db.sync();
-
 
 
 app.use('/static', express.static(SRC + '/public'));
@@ -27,7 +27,9 @@ app.use(function(req, res, next) {
 
 app.get('/test', (req, res) => { res.send('test back'); });
 app.get('/podcast', controller.podcast.listPodcast);
-app.post('/podcast', controller.podcast.postPodcast);
+app.post('/podcast',
+	controller.podcast.validationPostRules(),
+	controller.podcast.postPodcast);
 
 
 const PORT = process.env.PORT || 3000;
