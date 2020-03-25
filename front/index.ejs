@@ -8,48 +8,11 @@
 		<title>Chardin Computing</title>
 	</head>
 	<body>
+		<%= view %>
+		slt
 		<div id="app">
 			<v-app>
-				<v-content>
-					<v-container>Hello world {{ message }} </v-container>
-
-					<v-container>Hello world 
-
-						<v-row no-gutters >
-							<v-col
-							cols="2"
-							>
-								<v-card
-								outlined
-								tile
-								>
-								ici
-								</v-card>
-							</v-col>
-
-							<v-col
-							cols="8"
-							>
-							<v-podcast></v-podcast>
-							</v-col>
-
-
-							<v-col
-							cols="2"
-							>
-								<v-card
-								outlined
-								tile
-								>
-								ici
-								</v-card>
-							</v-col>
-
-						</v-row>
-
-					</v-container>
-
-				</v-content>
+				<%- include('layout.ejs', {view: view}) %>
 			</v-app>
 		</div>
 	</body>
@@ -62,13 +25,11 @@
 
 <script type="module" charset="utf-8">
 
-//import {podcast} from './elements/podcast.html';
-
 var app = new window.Vue({
 	el: '#app',
 	vuetify: new Vuetify(),
 	components: {
-	'v-podcast': window.httpVueLoader('elements/podcast.vue'),
+		'my-router': window.httpVueLoader('<%= view %>.vue'),
 	},
 	data: {
 		message: 'Hello Vue!',

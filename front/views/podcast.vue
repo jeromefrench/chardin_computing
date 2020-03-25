@@ -26,9 +26,7 @@ tile
 
 
 module.exports = {
-//var app = new Vue({
-	//vuetify: new Vuetify(),
-	data: function() {
+	data: function(){
 		return {
 			podcastSrc: null,
 			showPodcast: false,
@@ -57,7 +55,6 @@ module.exports = {
 	mounted: function() {
 		this.getPodcast();
 	}
-//})
 }
 
 

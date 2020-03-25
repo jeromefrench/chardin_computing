@@ -8,6 +8,7 @@ const controller = require(SRC +'/controller/index.js');
 var bodyParser = require('body-parser');
 const { check, validationResult } = require('express-validator')
 
+
 // parse application/json
 app.use(bodyParser.json());
 const db = require(SRC + '/config/database.js');
