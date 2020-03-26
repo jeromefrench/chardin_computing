@@ -1,0 +1,40 @@
+
+<v-app-bar app dark class="indigo"
+prominent
+shrink-on-scroll
+src="https://picsum.photos/1920/1080?random"
+>
+
+	<v-menu
+	bottom
+	left
+	>
+		<template v-slot:activator="{ on }">
+			<v-btn
+			icon
+			color="yellow"
+			v-on="on"
+			>
+				<v-app-bar-nav-icon></v-app-bar-nav-icon>
+			</v-btn>
+		</template>
+
+		<v-list>
+			<v-list-item
+			v-for="(item, i) in items"
+			:key="i"
+			>
+				<v-list-item-title><a :href="item.link">{{ item.title }}</a></v-list-item-title>
+			</v-list-item>
+		</v-list>
+	</v-menu>
+
+
+	<v-toolbar-title class="headline text-uppercase">
+		<a id="link" href="/">
+			<span>WORLD &nbsp;</span>
+			<span class="font-weight-light">Podcast Show</span>
+		</a>
+	</v-toolbar-title>
+	<v-spacer></v-spacer>
+</v-app-bar>

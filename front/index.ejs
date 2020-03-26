@@ -8,12 +8,13 @@
 		<title>Chardin Computing</title>
 	</head>
 	<body>
-		<%= view %>
-		slt
 		<div id="app">
-			<v-app>
-				<%- include('layout.ejs', {view: view}) %>
-			</v-app>
+<template>
+	<v-app>
+			<%- include('./layout/navbar.ejs'); %>
+			<%- include('./layout/layout.ejs', {view: view}); %>
+	</v-app>
+</template>
 		</div>
 	</body>
 </html>
@@ -29,11 +30,39 @@ var app = new window.Vue({
 	el: '#app',
 	vuetify: new Vuetify(),
 	components: {
-		'my-router': window.httpVueLoader('<%= view %>.vue'),
+	'my-router': window.httpVueLoader('<%= view %>.vue'),
 	},
 	data: {
+		items: [
+			{ title: 'Home', link: "/" },
+			{ title: 'Post podcast', link: "/admin-podcast" },
+		],
 		message: 'Hello Vue!',
 	}
 })
 
 </script>
+
+<style>
+
+#link:link {
+  text-decoration: none;
+  color: white;
+}
+
+#link:visited {
+  text-decoration: none;
+  color: white;
+}
+
+#link:hover {
+  text-decoration: none;
+  color: white;
+}
+
+#link:active {
+  text-decoration: none;
+  color: white;
+}
+
+<style>
