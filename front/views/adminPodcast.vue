@@ -1,61 +1,80 @@
 <template>
-	<v-card
-	outlined
-	tile
-	>
-	ici
-
-	<audio controls  v-if="showPodcast">
-		<source :src="audioSrc" type="audio/mpeg">
-		Your browser does not support the audio element.
-	</audio>
-
-		<v-file-input v-model="filePodcast" @change="fileChange($event)" label="File input"></v-file-input>
 
 
 
-		<v-text-field
-		v-model="pathName"
-		label="Path name"
-		></v-text-field>
+	<v-form v-model="valid"  class="red lighten-4 ma-8 pa-9  font-weight-medium center">
+
+		<v-card class="ma-2 pa-2 red lighten-5  ">
+			<audio controls  v-if="showPodcast"  class="ma-auto" style="width: 100%">
+				<source :src="audioSrc" type="audio/mpeg">
+				Your browser does not support the audio element.
+			</audio>
+			<v-file-input class="px-5"  v-model="filePodcast" @change="fileChange($event)" label="File input"></v-file-input>
+		</v-card>
 
 
-		<v-menu
-		v-model="menu2"
-		:close-on-content-click="false"
-		:nudge-right="40"
-		transition="scale-transition"
-		offset-y
-		min-width="290px"
-		>
-
-			<template v-slot:activator="{ on }">
-				<v-text-field
-				v-model="date"
-				label="Picker without buttons"
-				readonly
-				v-on="on"
-				></v-text-field>
-			</template>
-			<v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
-
-		</v-menu>
+		<v-card class="ma-2   red lighten-5">
+			<v-text-field
+			class="px-5"
+			light
+			v-model="pathName"
+			label="Path name"
+			></v-text-field>
+		</v-card>
 
 
+		<v-card class="ma-2 pa-2  red lighten-5">
+			<v-menu
+			v-model="menu2"
+			:close-on-content-click="false"
+			:nudge-right="40"
+			transition="scale-transition"
+			offset-y
+			min-width="290px"
+			>
 
-		<v-text-field
-		v-model="country"
-		label="Country"
-		></v-text-field>
+				<template v-slot:activator="{ on }">
+					<v-text-field
+					class="px-5"
+					v-model="date"
+					label="Date"
+					readonly
+					v-on="on"
+					></v-text-field>
+				</template>
+				<v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
 
-		<v-btn
-		color="success"
-		@click="validate"
-		>
-		Validate
-		</v-btn>
+			</v-menu>
+		</v-card>
 
-	</v-card>
+
+
+		<v-card class="ma-2   red lighten-5">
+			<v-text-field
+			class="px-5"
+			v-model="country"
+			label="Country"
+			></v-text-field>
+		</v-card>
+
+		<v-card class="ma-2   red lighten-5">
+			<v-textarea
+			class="ma-2"
+			name="description"
+			label="Description"
+			></v-textarea>
+		</v-card>
+
+
+			<v-btn
+			color="success"
+			@click="validate"
+			>
+			Validate
+			</v-btn>
+
+	</v-form>
+
 </template>
 
 <script charset="utf-8">
@@ -72,6 +91,7 @@ module.exports = {
 				filePodcast: null,
 				audioSrc: null,
 				showPodcast: false,
+				valid: false,
 			}
 	},
 	methods: {
@@ -97,6 +117,11 @@ module.exports = {
 	},
 	mounted: function() {
 		//this.getPodcast();
+        //this.$vuetify.theme.themes.light.primary = '#E53935';
+		//console.log(this.$vuetify.theme.themes.light.primary);
+        //this.$vuetify.theme.themes.light.secondary = '#FFCDD2';
+        //this.$vuetify.theme.themes.light.accent =  '#3F51B5';
+        //this.$vuetify.theme.themes.light.background =  '#FFAB91';
 	}
 }
 
