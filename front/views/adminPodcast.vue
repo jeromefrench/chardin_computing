@@ -2,9 +2,9 @@
 
 
 
-	<v-form v-model="valid"  class="red lighten-4 ma-8 pa-9  font-weight-medium center">
+	<v-form v-model="valid"  class="red lighten-4 ma-8 pa-9  font-weight-medium center" style="text-align:center" >
 
-		<v-card class="ma-2 pa-2 red lighten-5  ">
+		<v-card class="ma-2  pa-2 red lighten-5  ">
 			<audio controls  v-if="showPodcast"  class="ma-auto" style="width: 100%">
 				<source :src="audioSrc" type="audio/mpeg">
 				Your browser does not support the audio element.
