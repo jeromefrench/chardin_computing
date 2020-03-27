@@ -76,9 +76,6 @@ module.exports = {
 	},
 	methods: {
 		fileChange($event){
-			console.log("file change");
-			console.log($event);
-			console.log(this.filePodcast);
 			this.audioSrc = URL.createObjectURL(this.filePodcast);
 			this.showPodcast = true;
 		},
