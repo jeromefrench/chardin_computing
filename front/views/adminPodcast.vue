@@ -5,6 +5,15 @@
 	>
 	ici
 
+	<audio controls  v-if="showPodcast">
+		<source :src="audioSrc" type="audio/mpeg">
+		Your browser does not support the audio element.
+	</audio>
+
+		<v-file-input v-model="filePodcast" @change="fileChange($event)" label="File input"></v-file-input>
+
+
+
 		<v-text-field
 		v-model="pathName"
 		label="Path name"
@@ -60,9 +69,19 @@ module.exports = {
 				menu: false,
 				modal: false,
 				menu2: false,
+				filePodcast: null,
+				audioSrc: null,
+				showPodcast: false,
 			}
 	},
 	methods: {
+		fileChange($event){
+			console.log("file change");
+			console.log($event);
+			console.log(this.filePodcast);
+			this.audioSrc = URL.createObjectURL(this.filePodcast);
+			this.showPodcast = true;
+		},
 		postPodcast(){
 			axios.post('http://chardin-computing.freeboxos.fr:3000/podcast', {
 				pathName: this.pathName,
