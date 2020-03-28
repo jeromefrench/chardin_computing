@@ -1,6 +1,6 @@
 <template>
 
-	<v-form v-model="valid" :lazy-validation="lazy" class="red lighten-4 ma-8 pa-9  font-weight-medium center" style="text-align:center" >
+	<v-form ref="form" v-model="valid" :lazy-validation="lazy" class="red lighten-4 ma-8 pa-9  font-weight-medium center" style="text-align:center" >
 
 		<v-card class="ma-2  pa-2 red lighten-5  ">
 			<audio controls  v-if="showPodcast"  class="ma-auto" style="width: 100%">
@@ -73,6 +73,7 @@
 		</v-card>
 
 		<v-btn
+		:disabled="!valid"
 		color="success"
 		@click="validate"
 		>
@@ -131,16 +132,12 @@ module.exports = {
 			})
 		},
 		validate(){
+			if (this.$refs.form.validate()){
+			}
 			this.postPodcast();
 		}
 	},
 	mounted: function() {
-		//this.getPodcast();
-        //this.$vuetify.theme.themes.light.primary = '#E53935';
-		//console.log(this.$vuetify.theme.themes.light.primary);
-        //this.$vuetify.theme.themes.light.secondary = '#FFCDD2';
-        //this.$vuetify.theme.themes.light.accent =  '#3F51B5';
-        //this.$vuetify.theme.themes.light.background =  '#FFAB91';
 	}
 }
 
