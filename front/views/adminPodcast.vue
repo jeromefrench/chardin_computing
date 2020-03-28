@@ -104,16 +104,16 @@ module.exports = {
 	},
 	methods: {
 		titleRules(value){
-			return value.length == 0 ? 'field required': true;
+			return value.length > 0 ? true : 'field required';
 		},
 		pathNameRules(value){
-			return value.length == 0 ? 'field required': true;
+			return value.length > 0 ? true : 'field required';
 		},
 		dateRules(value){
-			return value.length == 0 ? 'field required': true;
+			return value.length > 0 ? true : 'field required';
 		},
 		countryRules(value){
-			return value.length == 0 ? 'field required': true;
+			return value.length > 0 ? true : 'field required';
 		},
 		fileChange($event){
 			this.audioSrc = URL.createObjectURL(this.filePodcast);
@@ -121,9 +121,11 @@ module.exports = {
 		},
 		postPodcast(){
 			axios.post('http://chardin-computing.freeboxos.fr:3000/podcast', {
+				title: this.title,
 				pathName: this.pathName,
 				date: this.date,
-				country: this.country
+				country: this.country,
+				description: this.description
 			})
 			.then((response)=> {
 			})
@@ -133,8 +135,8 @@ module.exports = {
 		},
 		validate(){
 			if (this.$refs.form.validate()){
+				this.postPodcast();
 			}
-			this.postPodcast();
 		}
 	},
 	mounted: function() {

@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 const db = require(SRC + '/config/database.js');
 
 //force a creer la table
-db.sync();
+db.sync({alter: true});
 
 
 app.use('/static', express.static(SRC + '/public'));

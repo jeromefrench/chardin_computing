@@ -3,6 +3,9 @@ const db = require(SRC + '/config/database.js');
 
 
 const Podcast = db.define('podcast', {
+	title: {
+		type: Sequelize.STRING
+	},
 	pathName: {
 		type: Sequelize.STRING
 	},
@@ -10,6 +13,9 @@ const Podcast = db.define('podcast', {
 		type: Sequelize.DATE
 	},
 	country: {
+		type: Sequelize.STRING
+	},
+	description: {
 		type: Sequelize.STRING
 	}
 });

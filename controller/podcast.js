@@ -28,13 +28,16 @@ module.exports = class homeController {
 
 	static validationPostRules(){
 		return [
-			check('pathName').isString().bail().isLength({min: 3, max: 255}),
+			check('title').isString().bail().isLength({min: 1, max: 255}),
+			check('pathName').isString().bail().isLength({min: 1, max: 255}),
 			check('date').isISO8601(),
-			check('country').isString().bail().isLength({min: 3, max: 255}),
+			check('country').isString().bail().isLength({min: 1, max: 255}),
+		//	check('description'),
 		]
 	}
 
 	static validate(req, res, next){
+		console.log(req.body);
 		const errors = validationResult(req)
 		if (errors.isEmpty()) {
 			return next()
@@ -47,13 +50,8 @@ module.exports = class homeController {
 	}
 
 	static async postPodcast(req, res){
-		let {pathName, date, country} =  req.body;
-		let result = await Podcast.findOne({where: {'pathName': pathName}});
-		if (!result)
-			Podcast.build({pathName, date, country}).save();
-		else
-			Podcast.update({pathName, date, country}).save();
-
+		let {title, pathName, date, country, description} =  req.body;
+		Podcast.build({title, pathName, date, country,description}).save();
 		res.send(req.body);
 	}
 
