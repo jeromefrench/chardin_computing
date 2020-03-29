@@ -11,7 +11,7 @@ outlined
 
 		<v-row tile no-gutters align="center">
 				<v-col cols="2" class="transparent text-center" >
-						<v-icon @click="showPodcast()" size="60" color="green darken-2"> mdi-play-circle</v-icon>
+						<v-icon @click="showPodcast(podcast)" size="60" color="green darken-2"> mdi-play-circle</v-icon>
 				</v-col>
 
 				<v-col cols="10" >
@@ -19,10 +19,12 @@ outlined
 					<span class="title">{{podcast.title}}</br></span>
 					{{ getDate(podcast.date) }}  <span class="float-right">{{podcast.country}}</span></br>
 					{{podcast.description}}</br>
-					<!-- <audio v-if="podcast.show" controls > -->
-						<!-- <source :src="buildSrc(src)" type="audio/mpeg"> -->
-						<!-- Your browser does not support the audio element. -->
-					<!-- </audio> -->
+					<v-card style="border-radius:0px;" class="mt-5 transparent" outlined>
+					<audio v-if="podcast.show" controls style="width:100%">
+						<source :src="buildSrc(podcast.pathName)" type="audio/mpeg">
+						Your browser does not support the audio element.
+					</audio>
+					</v-card>
 					</v-card>
 				</v-col>
 		</v-row>
@@ -45,7 +47,8 @@ module.exports = {
 		}
 	},
 	methods: {
-		showPodcast(){
+		showPodcast(podcast){
+			podcast.show = true;
 			console.log("play pod");
 		},
 		getDate(laDate){
@@ -59,7 +62,11 @@ module.exports = {
 			})
 				.then((response)=> {
 					this.podcasts = response.data;
-					//this.podcasts.map(v => ({...v, show: false}))
+					this.podcasts = this.podcasts.map(function(el) {
+						var o = Object.assign({}, el);
+						o.show = false;
+						return o;
+					})
 					console.log(this.podcasts);
 					this.show = true;
 				})
