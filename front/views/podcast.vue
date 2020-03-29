@@ -1,23 +1,34 @@
 
 <template>
 	<div>
+		<v-card
+		v-for="podcast in podcasts"
+		:key="podcast.id"
+		class="ma-5 transparent"
+		>
 
-<v-card
-v-for="src in podcastSrc" 
-:key="src"
-outlined
-tile
->
-{{src}}
-</br>
+		<v-row no-gutters align="center">
+				<v-col cols="2" class="transparent text-center" >
+<v-icon large color="green darken-2">mdi-play-circle</v-icon>
+				</v-col>
 
-	<audio controls >
-		<source :src="buildSrc(src)" type="audio/mpeg">
-		Your browser does not support the audio element.
-	</audio>
+				<v-col cols="10" >
+					{{podcast.title}}</br>
+					{{podcast.date}} - {{podcast.country}}</br>
+					{{podcast.description}}</br>
+				</v-col>
+		</v-row>
 
-</v-card>
 
+
+
+   
+			<!-- <audio controls > -->
+			<!-- <source :src="buildSrc(src)" type="audio/mpeg"> -->
+			<!-- Your browser does not support the audio element. -->
+			<!-- </audio> -->
+
+		</v-card>
 	</div>
 </template>
 
@@ -28,25 +39,20 @@ tile
 module.exports = {
 	data: function(){
 		return {
-			podcastSrc: null,
-			showPodcast: false,
+			podcasts: null,
 		}
 	},
 	methods: {
 		getPodcast(){
 			axios.get('http://chardin-computing.freeboxos.fr:3000/podcast', {
 			})
-			.then((response)=> {
-				this.podcastSrc = response.data;
-				console.log(this.podcastSrc);
-				console.log(this.showPodcast);
-				this.showPodcast = true;
-				console.log(this.showPodcast);
-				console.log("hello");
-			})
-			.catch(function (error) {
-				console.log(error);
-			})
+				.then((response)=> {
+					this.podcasts = response.data;
+					console.log(this.podcasts);
+				})
+				.catch(function (error) {
+					console.log(error);
+				})
 		},
 		buildSrc(src){
 			return "http://chardin-computing.freeboxos.fr:3000/static/podcast/" + src;

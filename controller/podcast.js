@@ -15,11 +15,9 @@ module.exports = class homeController {
 	}
 
 	static getPodcast(req, res){
-		res.send('hello');
-		Essai.findAll()
-		.then((result) => {
-			console.log(result);
-			console.log("********************");
+		Podcast.findAll()
+		.then((podcasts) => {
+			res.send(podcasts);
 		})
 		.catch(err => {
 			console.log(err);
