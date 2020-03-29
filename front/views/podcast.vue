@@ -2,31 +2,32 @@
 <template>
 	<div>
 		<v-card
+		v-if="show"
 		v-for="podcast in podcasts"
 		:key="podcast.id"
 		class="ma-5 transparent"
+outlined
 		>
 
-		<v-row no-gutters align="center">
+		<v-row tile no-gutters align="center">
 				<v-col cols="2" class="transparent text-center" >
-<v-icon large color="green darken-2">mdi-play-circle</v-icon>
+						<v-icon @click="showPodcast()" size="60" color="green darken-2"> mdi-play-circle</v-icon>
 				</v-col>
 
 				<v-col cols="10" >
-					{{podcast.title}}</br>
-					{{podcast.date}} - {{podcast.country}}</br>
+					<v-card color="rgb(230, 238, 156, 0.8)" class="px-10 rounded-card" style="border-radius:40px;">
+					<span class="title">{{podcast.title}}</br></span>
+					{{ getDate(podcast.date) }}  <span class="float-right">{{podcast.country}}</span></br>
 					{{podcast.description}}</br>
+					<!-- <audio v-if="podcast.show" controls > -->
+						<!-- <source :src="buildSrc(src)" type="audio/mpeg"> -->
+						<!-- Your browser does not support the audio element. -->
+					<!-- </audio> -->
+					</v-card>
 				</v-col>
 		</v-row>
 
 
-
-
-   
-			<!-- <audio controls > -->
-			<!-- <source :src="buildSrc(src)" type="audio/mpeg"> -->
-			<!-- Your browser does not support the audio element. -->
-			<!-- </audio> -->
 
 		</v-card>
 	</div>
@@ -40,15 +41,27 @@ module.exports = {
 	data: function(){
 		return {
 			podcasts: null,
+			show: false,
 		}
 	},
 	methods: {
+		showPodcast(){
+			console.log("play pod");
+		},
+		getDate(laDate){
+			return moment(laDate).format("MMMM Do YYYY");
+		},
+		getDescription(description){
+			return description == '' ? 'no description' : description;
+		},
 		getPodcast(){
 			axios.get('http://chardin-computing.freeboxos.fr:3000/podcast', {
 			})
 				.then((response)=> {
 					this.podcasts = response.data;
+					//this.podcasts.map(v => ({...v, show: false}))
 					console.log(this.podcasts);
+					this.show = true;
 				})
 				.catch(function (error) {
 					console.log(error);
@@ -65,3 +78,30 @@ module.exports = {
 
 
 </script>
+
+<style>
+.btn--plain {
+  height: auto;
+  width: auto;
+  margin: 0;
+  padding: 6px;
+  min-width: 0;
+  > .btn__content {
+    padding: 0;
+    opacity: 0.75;
+    &:before {
+      background-color: transparent !important;
+      transition: none !important;
+    }
+  }
+  &:hover {
+    > .btn__content {
+      opacity: 1;
+    }
+  }
+}
+</style>
+
+
+
+
