@@ -1,6 +1,6 @@
 <template>
 
-	<v-form ref="form" v-model="valid" :lazy-validation="lazy" class="red lighten-4 ma-8 pa-9  font-weight-medium center" style="text-align:center" >
+	<v-form enctype="multipart/form-data" ref="form" v-model="valid" :lazy-validation="lazy" class="red lighten-4 ma-8 pa-9  font-weight-medium center" style="text-align:center" >
 
 		<v-card class="ma-2  pa-2 red lighten-5  ">
 			<audio controls  v-if="showPodcast"  class="ma-auto" style="width: 100%">
@@ -120,13 +120,20 @@ module.exports = {
 			this.showPodcast = true;
 		},
 		postPodcast(){
-			axios.post('http://chardin-computing.freeboxos.fr:3000/podcast', {
-				title: this.title,
-				pathName: this.pathName,
-				date: this.date,
-				country: this.country,
-				description: this.description
-			})
+			filePodcast = new FormData();
+			filePodcast.append('file_pod', this.filePodcast);
+			filePodcast.append('title', this.title);
+			filePodcast.append('pathName', this.pathName);
+			filePodcast.append('date', this.date);
+			filePodcast.append('country', this.country);
+			filePodcast.append('description', this.description);
+			console.log(filePodcast);
+			axios.post('http://chardin-computing.freeboxos.fr:3000/podcast', filePodcast,
+				{
+					headers: {
+					'Content-Type': 'multipart/form-data'
+					}
+				})
 			.then((response)=> {
 			})
 			.catch(function (error) {

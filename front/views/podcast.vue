@@ -11,7 +11,7 @@ outlined
 
 		<v-row tile no-gutters align="center">
 				<v-col cols="2" class="transparent text-center" >
-						<v-icon @click="showPodcast(podcast)" size="60" color="green darken-2"> mdi-play-circle</v-icon>
+						<v-icon v-if="!podcast.show" @click="showPodcast(podcast)" size="60" color="green darken-2"> mdi-play-circle</v-icon>
 				</v-col>
 
 				<v-col cols="10" >
