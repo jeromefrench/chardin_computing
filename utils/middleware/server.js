@@ -8,7 +8,7 @@ const Podcast = require(SRC + '/model/podcast.js')
 const multer  = require('multer');
 var bodyParser = require('body-parser');
 
-const midleware = {
+middleware = {
 
 	cors: function(req, res, next){
 		res.header("Access-Control-Allow-Origin", "http://chardin-computing.freeboxos.fr");
@@ -19,6 +19,7 @@ const midleware = {
 
 }
 
+module.exports = [middleware.cors, middleware.bodyParse];
 
 
-module.exports = [midleware.cors, midleware.bodyParse];
+

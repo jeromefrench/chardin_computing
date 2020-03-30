@@ -37,7 +37,7 @@ module.exports = {
 			// You can always pass an error if something goes wrong:
 			//cb(new Error('I don\'t have a clue!'))
 		},
-		limits : {fileSize: 100000000000, files: 0}
+		limits : {fileSize: 100000000000, files: 1}
 	}).any(),
 	validationPostRules: function(){
 		return [

@@ -1,9 +1,9 @@
 SRC = __dirname;
 require('dotenv').config();
 const express = require('express');
+const multer  = require('multer');
 const app = express();
 const router = require(SRC +'/router/index.js');
-const multer  = require('multer');
 const midleware = require(SRC +'/utils/middleware/index.js');
 
 /*DATA BASE*/
@@ -12,7 +12,7 @@ db.sync({alter: true});
 
 /*MIDDLEWARE*/
 app.use('/static', express.static(SRC + '/public'));
-app.all('/', midleware.server, (req, res, next) => { next();});
+app.use(midleware.server);
 
 /*ROUTE*/
 app.get('/test', (req, res) => { res.send('test back'); });
