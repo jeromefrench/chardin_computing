@@ -22,7 +22,8 @@ module.exports = {
 			errors: extractedErrors,
 		})
 	},
-	testa: multer({dest:'uploads/',
+	testa: multer({
+		// dest:'public/podcast',
 		fileFilter: function (req, file, cb) {
 
 			// The function should call `cb` with a boolean
@@ -37,7 +38,22 @@ module.exports = {
 			// You can always pass an error if something goes wrong:
 			//cb(new Error('I don\'t have a clue!'))
 		},
-		limits : {fileSize: 100000000000, files: 1}
+		limits : {fileSize: 100000000000, files: 1},
+		storage: multer.diskStorage({
+			destination: function (req, file, cb) {
+				cb(null, 'public/podcast')
+			},
+			filename: function (req, file, cb) {
+				console.log("hehe");
+				console.log(file);
+				console.log("hehe");
+				req.hello = "hihi";
+				//on enregistre un nom temporaire que lon save dand req
+				//par exemple le nom original puis la date;
+				//que l'on renome si c'est tout valide ou supprime si c'est pas bon
+				cb(null, file.filename + '-' + Date.now())
+			}
+		})
 	}).any(),
 	validationPostRules: function(){
 		return [
