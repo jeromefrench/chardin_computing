@@ -18,6 +18,16 @@ module.exports = class controlerPodcast{
 		res.send(req.body);
 	}
 
+	static async list(req, res){
+		Podcast.findAll()
+			.then((podcasts) => {
+				res.send(podcasts);
+			})
+			.catch(err => {
+				console.log(err);
+			})
+	}
+
 }
 
 
