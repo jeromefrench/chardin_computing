@@ -4,7 +4,7 @@ console.log(SRC);
 
 const express = require('express');
 const app = express();
-const router = require(SRC +'/controller/index.js');
+const router = require(SRC +'/router/index.js');
 
 
 var bodyParser = require('body-parser');
@@ -33,17 +33,8 @@ app.use(function(req, res, next) {
 
 
 app.get('/test', (req, res) => { res.send('test back'); });
-
 app.use('/podcast', router.podcast);
 
-
-
-// app.get('/podcast', controller.podcast.getPodcast);
-// app.post('/podcast',
-// 	controller.podcast.testtest(),
-// 	controller.podcast.validationPostRules(),
-// 	controller.podcast.validate,
-// 	controller.podcast.postPodcast);
 
 
 app.use(function (err, req, res, next) {
