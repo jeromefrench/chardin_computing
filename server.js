@@ -5,12 +5,8 @@ console.log(SRC);
 const express = require('express');
 const app = express();
 const router = require(SRC +'/router/index.js');
-
-
 var bodyParser = require('body-parser');
 const multer  = require('multer');
-
-const { check, validationResult } = require('express-validator')
 
 
 // parse application/json
@@ -24,12 +20,10 @@ db.sync({alter: true});
 app.use('/static', express.static(SRC + '/public'));
 
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://chardin-computing.freeboxos.fr"); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
+	res.header("Access-Control-Allow-Origin", "http://chardin-computing.freeboxos.fr");
+  	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  	next();
 });
-
-
 
 
 app.get('/test', (req, res) => { res.send('test back'); });
@@ -38,8 +32,8 @@ app.use('/podcast', router.podcast);
 
 
 app.use(function (err, req, res, next) {
-  if (err instanceof multer.MulterError) res.status(501).send(err.message);
-  else next(err);
+  	if (err instanceof multer.MulterError) res.status(501).send(err.message);
+  	else next(err);
 });
 
 
