@@ -21,10 +21,6 @@ module.exports = class controlerPodcast{
 	}
 
 	static async create(req, res){
-		console.log("&&&&&&&&&&&&&&");
-		console.log(req.body);
-		console.log(req.hello);
-		console.log(req.files);
 		let {title, pathName, date, country, description} =  req.body;
 		Podcast.build({title, pathName, date, country,description}).save();
 		//on transfert
@@ -43,6 +39,13 @@ module.exports = class controlerPodcast{
 			.catch(err => {
 				console.log(err);
 			})
+	}
+
+	static async get(req, res){
+		console.log("ici");
+		console.log(req.params);
+		let podcast = await Podcast.findOne({where: { 'id': req.params.idi }});
+		res.send(podcast);
 	}
 
 }

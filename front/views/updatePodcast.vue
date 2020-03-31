@@ -100,6 +100,7 @@ module.exports = {
 				description: '',
 				valid: false,
 				lazy: false,
+				id: null,
 			}
 	},
 	methods: {
@@ -140,13 +141,45 @@ module.exports = {
 				console.log(error);
 			})
 		},
+		getPodcast(){
+			console.log("&*&*&*");
+			console.log(this.id);
+			this.show = false;
+			axios.get('http://chardin-computing.freeboxos.fr:3000/podcast/' + this.id, { })
+				.then((response)=> {
+					console.log(response.data);
+					podcast = response.data;
+					this.title = podcast.title;
+					this.description = podcast.description;
+					this.data = podcast.date;
+					this.pathName = podcast.pathName;
+					this.country = podcast.country;
+					this.audioSrc = this.buildSrc(podcast.pathName);
+					this.showPodcast = true;
+				})
+				.catch(function (error) {
+					console.log(error);
+				})
+		},
 		validate(){
 			if (this.$refs.form.validate()){
 				this.postPodcast();
 			}
+		},
+		buildSrc(src){
+			return "http://chardin-computing.freeboxos.fr:3000/static/podcast/" + src;
 		}
 	},
 	mounted: function() {
+		let localUrl = window.location.href;
+		console.log(localUrl);
+		let regex = /([^\/])*$/;
+		let str = localUrl;
+		let newstr = str.match(regex);
+		console.log(newstr)
+		console.log(newstr);
+		this.id = newstr[0];
+		this.getPodcast();
 	}
 }
 

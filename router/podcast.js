@@ -8,6 +8,7 @@ let middlewarePost = [
 	midleware.podcast.validate
 ]
 
+router.get('/:idi', controller.podcast.get);
 router.get('/', controller.podcast.list);
 router.post('/', middlewarePost,  controller.podcast.create);
 router.delete('/', controller.podcast.delete);
