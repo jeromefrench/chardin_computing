@@ -116,6 +116,8 @@ module.exports = {
 			return value.length > 0 ? true : 'field required';
 		},
 		fileChange($event){
+			this.pathName = this.filePodcast.name;
+			console.log(this.filePodcast);
 			this.audioSrc = URL.createObjectURL(this.filePodcast);
 			this.showPodcast = true;
 		},
