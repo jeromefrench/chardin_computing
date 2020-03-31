@@ -9,6 +9,17 @@ const multer  = require('multer');
 
 module.exports = class controlerPodcast{
 
+	static async delete(req, res){
+		console.log(req.body);
+		console.log(req.body.id);
+		let podcast = await Podcast.findOne({where: { 'id': req.body.id }});
+		console.log(podcast);
+		console.log(podcast.pathName);
+		fs.unlinkSync(SRC + "/public/podcast/" + podcast.pathName);
+		podcast.destroy();
+		res.send(req.body);
+	}
+
 	static async create(req, res){
 		console.log("&&&&&&&&&&&&&&");
 		console.log(req.body);

@@ -10,5 +10,6 @@ let middlewarePost = [
 
 router.get('/', controller.podcast.list);
 router.post('/', middlewarePost,  controller.podcast.create);
+router.delete('/', controller.podcast.delete);
 
 module.exports = router;

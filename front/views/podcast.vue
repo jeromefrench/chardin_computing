@@ -11,14 +11,16 @@ outlined
 
 		<v-row tile no-gutters align="center">
 				<v-col cols="2" class="transparent text-center" >
-						<v-icon v-if="!podcast.show" @click="showPodcast(podcast)" size="60" color="green darken-2"> mdi-play-circle</v-icon>
+					<v-icon v-if="!podcast.show" @click="showPodcast(podcast)" size="60" color="green darken-2"> mdi-play-circle</v-icon></br>
+			<a @click="deletePodcast(podcast.id)">delete</a></br>
+					<a @click="updateupdate(podcast.id)">update</a>
 				</v-col>
 
 				<v-col cols="10" >
 					<v-card color="rgb(230, 238, 156, 0.8)" class="px-10 rounded-card" style="border-radius:40px;">
 					<span class="title">{{podcast.title}}</br></span>
 					{{ getDate(podcast.date) }}  <span class="float-right">{{podcast.country}}</span></br>
-					{{podcast.description}}</br>
+					{{getDescription(podcast.description)}}</br>
 					<v-card style="border-radius:0px;" class="mt-5 transparent" outlined>
 					<audio v-if="podcast.show" controls style="width:100%">
 						<source :src="buildSrc(podcast.pathName)" type="audio/mpeg">
@@ -28,8 +30,6 @@ outlined
 					</v-card>
 				</v-col>
 		</v-row>
-
-
 
 		</v-card>
 	</div>
@@ -47,6 +47,19 @@ module.exports = {
 		}
 	},
 	methods: {
+		updatePodcast(id){
+		},
+		deletePodcast(id){
+			console.log("*************");
+			console.log(id);
+			axios.delete('http://chardin-computing.freeboxos.fr:3000/podcast', {data:{'id': id}})
+				.then((response)=> {
+					this.getPodcast();
+				})
+				.catch(function (error) {
+					console.log(error);
+				})
+		},
 		showPodcast(podcast){
 			podcast.show = true;
 			console.log("play pod");
@@ -58,8 +71,8 @@ module.exports = {
 			return description == '' ? 'no description' : description;
 		},
 		getPodcast(){
-			axios.get('http://chardin-computing.freeboxos.fr:3000/podcast', {
-			})
+			this.show = false;
+			axios.get('http://chardin-computing.freeboxos.fr:3000/podcast', { })
 				.then((response)=> {
 					this.podcasts = response.data;
 					this.podcasts = this.podcasts.map(function(el) {
