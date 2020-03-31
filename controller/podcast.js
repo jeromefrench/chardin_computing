@@ -22,13 +22,15 @@ module.exports = class controlerPodcast{
 
 	static async update(req, res){
 		console.log("On update" + req.params.idi);
-		// console.log(req.body);
-		// console.log(req.body.id);
-		// let podcast = await Podcast.findOne({where: { 'id': req.body.id }});
-		// console.log(podcast);
-		// console.log(podcast.pathName);
-		// fs.unlinkSync(SRC + "/public/podcast/" + podcast.pathName);
-		// podcast.destroy();
+		console.log(req.body);
+		//faire le middle ware
+		let {title, pathName, date, country, description} =  req.body;
+		let podcast = await Podcast.findOne({where: { 'id': req.params.idi }});
+		podcast.title = title;
+		podcast.pathName = pathName;
+		podcast.country = country;
+		podcast.description = description;
+		await podcast.save();
 		res.send(req.body);
 	}
 

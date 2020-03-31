@@ -125,6 +125,7 @@ module.exports = {
 			axios.put('http://chardin-computing.freeboxos.fr:3000/podcast/' + this.id, data)
 			.then((response)=> {
 				console.log(response.data);
+				this.getPodcast();
 			})
 			.catch(function (error) {
 				console.log(error);
