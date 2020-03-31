@@ -16,6 +16,11 @@ module.exports = class controlerPodcast{
 		console.log(req.files);
 		let {title, pathName, date, country, description} =  req.body;
 		Podcast.build({title, pathName, date, country,description}).save();
+		//on transfert
+		fs.rename(SRC + '/public/podcast/'+req.fileName, SRC + '/public/podcast/' + pathName, function (err) {
+			if (err)
+				console.log(err);
+		});
 		res.send(req.body);
 	}
 

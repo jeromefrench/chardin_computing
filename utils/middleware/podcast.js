@@ -45,13 +45,10 @@ module.exports = {
 			},
 			filename: function (req, file, cb) {
 				console.log("hehe");
-				console.log(file);
-				console.log("hehe");
-				req.hello = "hihi";
+				req.fileName = Math.floor(Math.random() * 10000) + '-' + Date.now();
+				console.log(req.fileName);
 				//on enregistre un nom temporaire que lon save dand req
-				//par exemple le nom original puis la date;
-				//que l'on renome si c'est tout valide ou supprime si c'est pas bon
-				cb(null, file.filename + '-' + Date.now())
+				cb(null, req.fileName);
 			}
 		})
 	}).any(),
