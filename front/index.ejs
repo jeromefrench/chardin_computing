@@ -9,12 +9,12 @@
 	</head>
 	<body>
 		<div id="app">
-<template>
-	<v-app>
-			<%- include('./layout/navbar.ejs'); %>
-			<%- include('./layout/layout.ejs', {view: view}); %>
-	</v-app>
-</template>
+			<template>
+				<v-app>
+						<%- include('./layout/navbar.ejs'); %>
+						<%- include('./layout/layout.ejs', {view: view}); %>
+				</v-app>
+			</template>
 		</div>
 	</body>
 </html>
@@ -31,7 +31,7 @@ var app = new window.Vue({
 	el: '#app',
 	vuetify: new Vuetify(),
 	components: {
-	'my-router': window.httpVueLoader('<%= view %>.vue'),
+	'my-router': window.httpVueLoader('http://chardin-computing.freeboxos.fr/<%= view %>.vue'),
 	},
 	data: {
 		items: [

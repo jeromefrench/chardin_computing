@@ -13,7 +13,7 @@ outlined
 				<v-col cols="2" class="transparent text-center" >
 					<v-icon v-if="!podcast.show" @click="showPodcast(podcast)" size="60" color="green darken-2"> mdi-play-circle</v-icon></br>
 			<a @click="deletePodcast(podcast.id)">delete</a></br>
-					<a @click="updateupdate(podcast.id)">update</a>
+					<a @click="updatePodcast(podcast.id)">update</a>
 				</v-col>
 
 				<v-col cols="10" >
@@ -48,6 +48,7 @@ module.exports = {
 	},
 	methods: {
 		updatePodcast(id){
+			window.location.href = 'http://chardin-computing.freeboxos.fr/update-podcast/' + id;
 		},
 		deletePodcast(id){
 			console.log("*************");
