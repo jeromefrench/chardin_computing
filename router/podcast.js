@@ -10,6 +10,7 @@ let middlewarePost = [
 
 router.get('/:idi', controller.podcast.get);
 router.get('/', controller.podcast.list);
+router.put('/:idi', controller.podcast.update);
 router.post('/', middlewarePost,  controller.podcast.create);
 router.delete('/', controller.podcast.delete);
 

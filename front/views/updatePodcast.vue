@@ -7,7 +7,6 @@
 				<source :src="audioSrc" type="audio/mpeg">
 				Your browser does not support the audio element.
 			</audio>
-			<v-file-input class="px-5"  v-model="filePodcast" @change="fileChange($event)" label="File input"></v-file-input>
 		</v-card>
 
 		<v-card class="ma-2   red lighten-5">
@@ -91,7 +90,6 @@ module.exports = {
 			return {
 				showPodcast: false,
 				datePick: false,
-				filePodcast: null,
 				audioSrc: null,
 				title: '',
 				pathName: '',
@@ -116,26 +114,17 @@ module.exports = {
 		countryRules(value){
 			return value.length > 0 ? true : 'field required';
 		},
-		fileChange($event){
-			this.audioSrc = URL.createObjectURL(this.filePodcast);
-			this.showPodcast = true;
-		},
-		postPodcast(){
-			filePodcast = new FormData();
-			filePodcast.append('file_pod', this.filePodcast);
-			filePodcast.append('title', this.title);
-			filePodcast.append('pathName', this.pathName);
-			filePodcast.append('date', this.date);
-			filePodcast.append('country', this.country);
-			filePodcast.append('description', this.description);
-			console.log(filePodcast);
-			axios.post('http://chardin-computing.freeboxos.fr:3000/podcast', filePodcast,
-				{
-					headers: {
-					'Content-Type': 'multipart/form-data'
-					}
-				})
+		updatePodcast(){
+			data = {
+				'title': this.title,
+				'pathName': this.pathName,
+				'date': this.date,
+				'country': this.country,
+				'description': this.description
+			}
+			axios.put('http://chardin-computing.freeboxos.fr:3000/podcast/' + this.id, data)
 			.then((response)=> {
+				console.log(response.data);
 			})
 			.catch(function (error) {
 				console.log(error);
@@ -163,7 +152,7 @@ module.exports = {
 		},
 		validate(){
 			if (this.$refs.form.validate()){
-				this.postPodcast();
+				this.updatePodcast();
 			}
 		},
 		buildSrc(src){

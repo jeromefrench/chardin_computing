@@ -20,6 +20,18 @@ module.exports = class controlerPodcast{
 		res.send(req.body);
 	}
 
+	static async update(req, res){
+		console.log("On update" + req.params.idi);
+		// console.log(req.body);
+		// console.log(req.body.id);
+		// let podcast = await Podcast.findOne({where: { 'id': req.body.id }});
+		// console.log(podcast);
+		// console.log(podcast.pathName);
+		// fs.unlinkSync(SRC + "/public/podcast/" + podcast.pathName);
+		// podcast.destroy();
+		res.send(req.body);
+	}
+
 	static async create(req, res){
 		let {title, pathName, date, country, description} =  req.body;
 		Podcast.build({title, pathName, date, country,description}).save();
