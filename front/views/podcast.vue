@@ -1,17 +1,45 @@
 
 <template>
 	<div>
+
+  <div class="text-right">
+    <v-menu offset-y>
+      <template v-slot:activator="{ on }">
+        <v-btn
+          color="primary"
+          dark
+          v-on="on"
+        >
+          Sorting
+        </v-btn>
+      </template>
+      <v-list>
+        <v-list-item
+          v-for="(item, index) in items"
+          :key="index"
+          @click="item.method()"
+        >
+          <v-list-item-title >{{ item.title }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+  </div>
+
+
+
 		<v-card
 		v-if="show"
 		v-for="podcast in podcasts"
 		:key="podcast.id"
-		class="ma-5 transparent"
-outlined
+		class="my-5 transparent"
+		outlined
 		>
+
+
 
 		<v-row tile no-gutters align="center">
 				<v-col cols="2" class="transparent text-center" >
-					<v-icon v-if="!podcast.show" @click="showPodcast(podcast)" size="60" color="green darken-2"> mdi-play-circle</v-icon></br>
+					<v-icon v-if="!podcast.show" @click="showPodcast(podcast)" class="mx-auto" size="60" color="green darken-2"> mdi-play-circle</v-icon></br>
 			<a @click="deletePodcast(podcast.id)">delete</a></br>
 					<a @click="updatePodcast(podcast.id)">update</a>
 				</v-col>
@@ -44,9 +72,33 @@ module.exports = {
 		return {
 			podcasts: null,
 			show: false,
+			items: [
+				{ title: 'oldest', method: this.oldest },
+				{ title: 'newest', method: this.newest },
+			],
 		}
 	},
 	methods: {
+		oldest(){
+			console.log(this.podcasts);
+			console.log("oldest");
+			this.podcasts = this.podcasts.sort(function(a,b){
+				// Turn your strings into dates, and then subtract them
+				// to get a value that is either negative, positive, or zero.
+				return  new Date(a.date) -  new Date(b.date) ;
+			});
+			console.log(this.podcasts);
+		},
+		newest(){
+			console.log(this.podcasts);
+			console.log("newest");
+			this.podcasts = this.podcasts.sort(function(a,b){
+				// Turn your strings into dates, and then subtract them
+				// to get a value that is either negative, positive, or zero.
+				return new Date(b.date) - new Date(a.date);
+			});
+			console.log(this.podcasts);
+		},
 		updatePodcast(id){
 			window.location.href = 'http://chardin-computing.freeboxos.fr/update-podcast/' + id;
 		},
@@ -102,24 +154,24 @@ module.exports = {
 
 <style>
 .btn--plain {
-  height: auto;
-  width: auto;
-  margin: 0;
-  padding: 6px;
-  min-width: 0;
-  > .btn__content {
-    padding: 0;
-    opacity: 0.75;
-    &:before {
-      background-color: transparent !important;
-      transition: none !important;
-    }
-  }
-  &:hover {
-    > .btn__content {
-      opacity: 1;
-    }
-  }
+  	height: auto;
+  	width: auto;
+  	margin: 0;
+  	padding: 6px;
+  	min-width: 0;
+  	> .btn__content {
+    	padding: 0;
+    	opacity: 0.75;
+    	&:before {
+      		background-color: transparent !important;
+      		transition: none !important;
+    	}
+  	}
+  	&:hover {
+    	> .btn__content {
+      		opacity: 1;
+    	}
+  	}
 }
 </style>
 
