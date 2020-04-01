@@ -46,7 +46,7 @@ module.exports = class controlerPodcast{
 	}
 
 	static async list(req, res){
-		Podcast.findAll()
+		Podcast.findAll({order: [['date', 'ASC']]})
 			.then((podcasts) => {
 				res.send(podcasts);
 			})
