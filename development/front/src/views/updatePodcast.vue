@@ -83,9 +83,11 @@
 
 </template>
 
-<script charset="utf-8">
+<script>
 
-module.exports = {
+import axios from  'axios';
+
+export default {
 	data: function() {
 			return {
 				showPodcast: false,
@@ -138,7 +140,7 @@ module.exports = {
 			axios.get('http://chardin-computing.freeboxos.fr:3000/podcast/' + this.id, { })
 				.then((response)=> {
 					console.log(response.data);
-					podcast = response.data;
+					let podcast = response.data;
 					this.title = podcast.title;
 					this.description = podcast.description;
 					this.data = podcast.date;
@@ -174,3 +176,13 @@ module.exports = {
 }
 
 </script>
+
+
+<style>
+.custom{
+	border: 2px solid red;
+	padding: 30px;
+}
+</style>
+
+

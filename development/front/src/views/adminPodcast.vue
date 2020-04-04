@@ -13,6 +13,7 @@
 		<v-card class="ma-2   red lighten-5">
 			<v-text-field
 			class="px-5"
+			px-5
 			v-model="title"
 			:rules="[ titleRules ]"
 			label="Title"
@@ -84,9 +85,11 @@
 
 </template>
 
-<script charset="utf-8">
+<script>
 
-module.exports = {
+import axios from  'axios';
+
+export default {
 	data: function() {
 			return {
 				showPodcast: false,
@@ -122,7 +125,7 @@ module.exports = {
 			this.showPodcast = true;
 		},
 		postPodcast(){
-			filePodcast = new FormData();
+			let filePodcast = new FormData();
 			filePodcast.append('file_pod', this.filePodcast);
 			filePodcast.append('title', this.title);
 			filePodcast.append('pathName', this.pathName);
@@ -145,6 +148,7 @@ module.exports = {
 		validate(){
 			if (this.$refs.form.validate()){
 				this.postPodcast();
+				console.log("On poste");
 			}
 		}
 	},
