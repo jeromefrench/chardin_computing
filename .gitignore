@@ -1,4 +1,4 @@
 node_modules
 .*
-public/*
-package-lock.json
+development/public/*
+./developement/package-lock.json
