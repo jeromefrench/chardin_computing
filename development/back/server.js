@@ -24,6 +24,6 @@ app.use(function (err, req, res, next) {
   	else next(err);
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.BACK_PORT || 3000;
 console.log(`Server back listening on port ${PORT}`);
 app.listen(PORT);
