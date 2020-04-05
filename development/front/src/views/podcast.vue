@@ -58,7 +58,7 @@ export default {
 		deletePodcast(id){
 			console.log("*************");
 			console.log(id);
-			axios.delete('http://chardin-computing.freeboxos.fr:3000/podcast', {data:{'id': id}})
+			axios.delete(process.env.BACK_URL + '/podcast', {data:{'id': id}})
 				.then((response)=> {
 					this.getPodcast();
 				})
@@ -78,7 +78,9 @@ export default {
 		},
 		getPodcast(){
 			this.show = false;
-			axios.get('http://chardin-computing.freeboxos.fr:3000/podcast', { })
+			console.log("ici");
+			console.log(process.env.VUE_APP_BACK_URL + '/podcast');
+			axios.get(process.env.VUE_APP_BACK_URL + '/podcast', { })
 				.then((response)=> {
 					this.podcasts = response.data;
 					this.podcasts = this.podcasts.map(function(el) {
@@ -94,13 +96,15 @@ export default {
 				})
 		},
 		buildSrc(src){
-			return "http://chardin-computing.freeboxos.fr:3000/static/podcast/" + src;
+			return process.env.VUE_APP_BACK_URL + "/static/podcast/" + src;
 		},
 		sortPodcast(podcast){
 			console.log(podcast);
 		}
 	},
 	mounted: function() {
+		console.log(process.env.NODE_ENV)
+		console.log(process.env)
 		this.getPodcast();
 	}
 }
