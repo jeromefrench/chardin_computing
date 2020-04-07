@@ -11,7 +11,7 @@ CURRENT=$PWD
 cp -r "$CURRENT/development/front/dist/production/"* "$CURRENT/production/front/static_dir"
 
 #copy server
-cp -r "$CURRENT/development/front/server" "$CURRENT/production/front/"
+cp -r "$CURRENT/development/front/server/"* "$CURRENT/production/front/server"
 
 #launch server
 (cd $CURRENT/production/front ; /usr/bin/concurrently "/usr/bin/node $CURRENT/production/front/server/server.js")
