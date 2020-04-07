@@ -1,3 +1,5 @@
 node_modules
 .*
 podcast
+front/static_dir
+front/server
