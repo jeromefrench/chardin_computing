@@ -53,12 +53,14 @@ export default {
 	},
 	methods: {
 		updatePodcast(id){
-			window.location.href = 'http://localhost:8080/update-podcast/' + id;
+			window.location.href = '/update-podcast/' + id;
 		},
 		deletePodcast(id){
 			console.log("*************");
 			console.log(id);
-			axios.delete(process.env.BACK_URL + '/podcast', {data:{'id': id}})
+			let url = process.env.VUE_APP_BACK_URL + '/podcast';
+			console.log(url);
+			axios.delete(url, {data:{'id': id}})
 				.then((response)=> {
 					this.getPodcast();
 				})

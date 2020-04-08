@@ -133,7 +133,7 @@ export default {
 			filePodcast.append('country', this.country);
 			filePodcast.append('description', this.description);
 			console.log(filePodcast);
-			axios.post('http://chardin-computing.freeboxos.fr:3000/podcast', filePodcast,
+			axios.post(process.env.VUE_APP_BACK_URL + '/podcast', filePodcast,
 				{
 					headers: {
 					'Content-Type': 'multipart/form-data'

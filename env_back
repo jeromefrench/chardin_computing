@@ -1,0 +1,8 @@
+BACK_PORT=3000
+DB_NAME=podcast_show
+DB_USER=pi
+DB_PASSWD=lavisse5351
+DB_HOST=localhost
+FRONT_URL=http://podcast-show.freeboxos.fr
+
+

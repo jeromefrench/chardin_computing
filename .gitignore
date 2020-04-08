@@ -4,3 +4,4 @@ podcast
 front/static_dir
 front/server
 dist/
+production/
