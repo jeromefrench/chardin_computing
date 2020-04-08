@@ -3,6 +3,7 @@ DB_NAME=podcast_show
 DB_USER=pi
 DB_PASSWD=lavisse5351
 DB_HOST=localhost
+ASSETS_PATH=/var/www/chardin_computing_assets
 FRONT_URL=http://podcast-show.freeboxos.fr
 
 

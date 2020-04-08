@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 var router = express.Router();
 const fs = require('fs');
@@ -15,7 +16,7 @@ module.exports = class controlerPodcast{
 		let podcast = await Podcast.findOne({where: { 'id': req.body.id }});
 		console.log(podcast);
 		console.log(podcast.pathName);
-		fs.unlinkSync(SRC + "/public/podcast/" + podcast.pathName);
+		fs.unlinkSync(process.env.ASSETS_PATH + "/podcasts/" + podcast.pathName);
 		podcast.destroy();
 		res.send(req.body);
 	}
@@ -38,7 +39,7 @@ module.exports = class controlerPodcast{
 		let {title, pathName, date, country, description} =  req.body;
 		Podcast.build({title, pathName, date, country,description}).save();
 		//on transfert
-		fs.rename(SRC + '/public/podcast/'+req.fileName, SRC + '/public/podcast/' + pathName, function (err) {
+		fs.rename(process.env.ASSETS_PATH + '/podcasts/' + req.fileName, process.env.ASSETS_PATH + '/podcasts/' + pathName, function (err) {
 			if (err)
 				console.log(err);
 		});

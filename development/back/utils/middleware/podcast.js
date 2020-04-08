@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 var router = express.Router();
 const fs = require('fs');
@@ -41,7 +42,7 @@ module.exports = {
 		limits : {fileSize: 100000000000, files: 1},
 		storage: multer.diskStorage({
 			destination: function (req, file, cb) {
-				cb(null, 'public/podcast')
+				cb(null, process.env.ASSETS_PATH + '/podcasts')
 			},
 			filename: function (req, file, cb) {
 				console.log("hehe");

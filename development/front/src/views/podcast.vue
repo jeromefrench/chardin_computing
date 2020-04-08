@@ -98,7 +98,7 @@ export default {
 				})
 		},
 		buildSrc(src){
-			return process.env.VUE_APP_BACK_URL + "/static/podcast/" + src;
+			return process.env.VUE_APP_BACK_URL + "/static/podcasts/" + src;
 		},
 		sortPodcast(podcast){
 			console.log(podcast);
