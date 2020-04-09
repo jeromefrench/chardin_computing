@@ -11,9 +11,12 @@ home personal website (API Rest) available on podcast-show.fun
 
 Deploy on any unix system 
 ## Front
-  set env_front
+  edit env_front</br>
   run sudo ./deployment_front
   
 ## Back
-set env_back
+edit env_back</br>
 run sudo ./deployemnt_back
+
+## Data base
+see script database
