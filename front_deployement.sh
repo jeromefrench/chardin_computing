@@ -4,6 +4,12 @@ set -x
 
 CURRENT=$PWD
 
+
+#install moduls
+(cd $CURRENT/development/front ; npm install)
+(cd $CURRENT/development/front/server ; npm install)
+
+
 #build app
 (cd $CURRENT/development/front ; node_modules/.bin/vue-cli-service build --mode production --dest dist/production)
 
