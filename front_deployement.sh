@@ -6,26 +6,26 @@ CURRENT=$PWD
 
 
 #install moduls
-(cd $CURRENT/development/front ; npm install)
-(cd $CURRENT/development/front/server ; npm install)
+(cd $CURRENT/vue_app ; npm install)
+(cd $CURRENT/vue_app/server ; npm install)
 
 
 #build app
-(cd $CURRENT/development/front ; node_modules/.bin/vue-cli-service build --mode production --dest dist/production)
+(cd $CURRENT/vue_app ; node_modules/.bin/vue-cli-service build --mode production --dest dist/production)
 
 #create direcories if not exist
-mkdir -p "$CURRENT/production/front"
-mkdir -p "$CURRENT/production/front/server"
-mkdir -p "$CURRENT/production/front/static_dir"
+mkdir -p "$CURRENT/production/vue_app"
+mkdir -p "$CURRENT/production/vue_app/server"
+mkdir -p "$CURRENT/production/vue_app/static_dir"
 
 #copy env front
-cp  "$CURRENT/env_front" "$CURRENT/production/front/.env"
+cp  "$CURRENT/env_front" "$CURRENT/production/vue_app/.env"
 
 #copy app
-cp -r "$CURRENT/development/front/dist/production/"* "$CURRENT/production/front/static_dir"
+cp -r "$CURRENT/development/vue_app/dist/production/"* "$CURRENT/production/vue_app/static_dir"
 
 #copy server
-cp -r "$CURRENT/development/front/server/"* "$CURRENT/production/front/server"
+cp -r "$CURRENT/vue_app/server/"* "$CURRENT/production/vue_app/server"
 
 #launch server
-(cd $CURRENT/production/front ; /usr/bin/concurrently "/usr/bin/node $CURRENT/production/front/server/server.js")
+(cd $CURRENT/production/vue_app ; /usr/bin/concurrently "/usr/bin/node $CURRENT/production/vue_app/server/server.js")
