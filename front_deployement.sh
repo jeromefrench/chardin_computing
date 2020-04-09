@@ -22,7 +22,7 @@ mkdir -p "$CURRENT/production/vue_app/static_dir"
 cp  "$CURRENT/env_front" "$CURRENT/production/vue_app/.env"
 
 #copy app
-cp -r "$CURRENT/development/vue_app/dist/production/"* "$CURRENT/production/vue_app/static_dir"
+cp -r "$CURRENT/vue_app/dist/production/"* "$CURRENT/production/vue_app/static_dir"
 
 #copy server
 cp -r "$CURRENT/vue_app/server/"* "$CURRENT/production/vue_app/server"
