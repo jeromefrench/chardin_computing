@@ -4,6 +4,9 @@ set -x
 
 CURRENT=$PWD
 
+#install modules
+(cd $CURRENT/development/back ; npm install)
+
 #create direcories if not exist
 mkdir -p "$CURRENT/production/back"
 
