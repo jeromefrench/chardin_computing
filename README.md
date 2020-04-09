@@ -1,5 +1,5 @@
 # chardin_computing
-home personal website (API Rest) available on podcast-show.fun
+home personal website (API Rest) available on <a href="http://podcast-show.freeboxos.fr"> podcast-show.fun </a>
 
 <div style="display: inline-blocK">
 <img width="300" src="https://i.cloudup.com/zfY6lL7eFa-3000x3000.png" alt="Vue logo">
