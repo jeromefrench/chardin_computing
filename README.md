@@ -11,12 +11,16 @@ home personal website (API Rest) available on <a href="http://podcast-show.freeb
 
 Deploy on any unix system 
 ## Front
-  edit env_front</br>
-  run sudo ./deployment_front
+  ```
+./deployment_front.sh
+  ```
   
 ## Back
-edit env_back</br>
-run sudo ./deployemnt_back
+  ```
+./deployemnt_back.sh
+  ```
 
-## Data base
-see script database
+## Data base 
+```
+./server_db/install_db.sh
+```
