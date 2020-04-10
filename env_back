@@ -1,9 +1,9 @@
 BACK_PORT=3000
-DB_NAME=podcast_show
-DB_USER=pi
-DB_PASSWD=lavisse5351
+DB_NAME=myDbName
+DB_USER=myUser
+DB_PASSWD=myPassword
 DB_HOST=localhost
-ASSETS_PATH=/var/www/chardin_computing_assets
-FRONT_URL=http://podcast-show.freeboxos.fr
+ASSETS_PATH=/var/www/assets
+FRONT_URL=http://localhost
 
 
