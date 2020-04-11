@@ -19,6 +19,7 @@ app.use(midleware.server);
 /*ROUTE*/
 app.get('/test', (req, res) => { res.send('test back'); });
 app.use('/podcast', router.podcast);
+app.use('/user', router.users);
 
 /*ERROR*/
 app.use(function (err, req, res, next) {

@@ -1,4 +1,3 @@
-
 <template>
 	<div>
 		<my-sorting class="float-right":podcasts=this.podcasts v-on:orderPodcast="sortPodcast($event)"></my-sorting>
