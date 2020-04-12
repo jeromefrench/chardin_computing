@@ -23,6 +23,7 @@
 import axios from  'axios';
 //import sorting from '@/components/sorting.vue'
 
+axios.defaults.withCredentials = true;
 export default {
 	components: {
 //		'my-sorting': sorting
@@ -35,7 +36,8 @@ export default {
 	},
 	methods: {
 		getProfile(){
-			axios.get(process.env.VUE_APP_BACK_URL + '/user', { })
+			axios.defaults.withCredentials = true;
+			axios.get(process.env.VUE_APP_BACK_URL + '/user')
 				.then((response)=> {
 					console.log(response.data);
 				})
@@ -46,6 +48,7 @@ export default {
 	},
 	mounted: function() {
 		this.getProfile();
+		console.log("hello yuou");
 	}
 }
 

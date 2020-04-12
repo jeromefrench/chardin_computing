@@ -4,7 +4,10 @@ const midleware = require(SRC +'/utils/middleware/index.js');
 const passport = require('passport');
 
 
-let authentic = passport.authenticate('local');
+
+
+
+let authentic = passport.authenticate('local',{ failureRedirect: '/fail' });
 
 
 

@@ -18,14 +18,25 @@ module.exports = class controlerUsers{
 	static async getProfile(req, res){
 		console.log("***********************");
 		console.log("On donne profil");
-		res.send("le profile");
+		console.log(req.user);
+		console.log(req.session);
+		res.send(req.user);
 	}
 
 	static async signIn(req, res){
-		console.log("***********************");
-		console.log("On sign in");
-		console.log(req.body);
-		res.send(req.body);
+
+			console.log("***********************");
+			console.log("On sign in");
+
+		//req.session.save(function(){
+			console.log("***********************");
+			console.log("On sign in");
+			//console.log(res.cookies);
+			console.log(req.session);
+			//res.session = "test";
+			res.send(req.user);
+		//});
+
 	}
 
 }
