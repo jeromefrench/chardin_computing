@@ -21,9 +21,6 @@ app.use(cookieSession({
 
 
 
-
-
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -136,9 +133,14 @@ app.get('/test', (req, res) => { res.send('test back'); });
 app.use('/podcast', router.podcast);
 app.use('/user', router.users);
 
-
-
-
+app.get('/connected', (req, res) => {
+	if (req.user){
+		res.send(true);
+	}
+	else {
+		res.send(false);
+	}
+})
 
 
 

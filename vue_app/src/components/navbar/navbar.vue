@@ -30,6 +30,7 @@ shrink-on-scroll
 		</v-list>
 	</v-menu>
 
+
 	<v-toolbar-title class="headline text-uppercase pa-4">
 		<v-card class="pa-2" color="rgb(0, 0, 0, 0.7)" >
 		<a id="link" href="/">
@@ -38,23 +39,37 @@ shrink-on-scroll
 		</a>
 		</v-card>
 	</v-toolbar-title>
-	<v-spacer></v-spacer>
+
+
+
+<v-spacer></v-spacer>
+<v-user></v-user>
+
+	</br>
+
+
 </v-app-bar>
 	</div>
 </template>
 
 <script>
 
+import user from '@/components/navbar/user.vue'
+
+
 export default {
 	data: function(){
 		return {
 			image: "https://picsum.photos/1920/1080?random",
-		items: [
-			{ title: 'Home', link: "/" },
-			{ title: 'Post podcast', link: "/admin-podcast" },
-		],
+			items: [
+				{ title: 'Home', link: "/" },
+				{ title: 'Post podcast', link: "/admin-podcast" },
+			],
 		}
 	},
+  components: {
+    'v-user': user
+  },
 }
 
 </script>

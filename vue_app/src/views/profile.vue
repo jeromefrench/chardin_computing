@@ -21,13 +21,9 @@
 <script>
 
 import axios from  'axios';
-//import sorting from '@/components/sorting.vue'
 
 axios.defaults.withCredentials = true;
 export default {
-	components: {
-//		'my-sorting': sorting
-	},
 	data: function(){
 		return {
 			pseudo: '',

@@ -42,9 +42,6 @@ import axios from  'axios';
 //import sorting from '@/components/sorting.vue'
 
 export default {
-	components: {
-//		'my-sorting': sorting
-	},
 	data: function(){
 		return {
 			pseudo: '',
@@ -62,6 +59,7 @@ export default {
 			})
 			.then((response)=> {
 				console.log(response.data);
+				this.$router.push({ name: 'podcast'})
 			})
 			.catch(function (error) {
 				console.log(error);
@@ -72,6 +70,7 @@ export default {
 		}
 	},
 	mounted: function() {
+		console.log("sign up");
 	}
 }
 

@@ -35,14 +35,12 @@
 <script>
 
 import axios from  'axios';
-//import sorting from '@/components/sorting.vue'
+import EventBus from '@/components/eventBus.js';
 
 export default {
-	components: {
-//		'my-sorting': sorting
-	},
 	data: function(){
 		return {
+			pseudo: '',
 			mail: '',
 			password: '',
 			valid: true,
@@ -59,6 +57,8 @@ export default {
 
 			})
 			.then((response)=> {
+				EventBus.$emit('EVENT_NAME', 'hello');
+				this.$router.push({ name: 'podcast'})
 			})
 			.catch(function (error) {
 				console.log(error);
@@ -66,29 +66,11 @@ export default {
 		}
 	},
 	mounted: function() {
+		console.log("hello");
+		console.log(this.password);
 	}
 }
 
 
+
 </script>
-
-
-<style>
-.cardColor {
-   	background-color: rgba(255, 255, 255, 0) !important;
-   	border-color: rgba(255, 255, 255, 0) !important;
-}
-
-.my-span {
-  	float: right;
-}
-.my-boite{
-	text-align: center;
-}
-.sorting{
-  float: right;
-}
-
-
-</style>
-
