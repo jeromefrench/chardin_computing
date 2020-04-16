@@ -114,7 +114,7 @@ db.sync({alter: true});
 /*MIDDLEWARE*/
 // app.use('/static', express.static(SRC + '/public'));
 // console.log(process.env.ASSETS_PATH);
-// app.use('/static', express.static(process.env.ASSETS_PATH));
+app.use('/static', express.static(process.env.ASSETS_PATH));
 app.use(midleware.server);
 
 
