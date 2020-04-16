@@ -61,6 +61,12 @@ module.exports = {
 			check('country').isString().bail().isLength({min: 1, max: 255}),
 			//	check('description'),
 		]
+	},
+	auth: function(req, res, next){
+		if(req.user && (req.user.mail == "jmail" || req.user.mail == "arsene.daudier@yahoo.fr")   )
+			next();
+		else
+			res.send("need auth");
 	}
 
 }
