@@ -24,19 +24,18 @@ shrink-on-scroll
 			<v-list-item
 			v-for="(item, i) in items"
 			:key="i"
+:to="item.link"
 			>
-				<v-list-item-title><a :href="item.link">{{ item.title }}</a></v-list-item-title>
+			<v-list-item-title >{{ item.title }}</v-list-item-title>
 			</v-list-item>
 		</v-list>
 	</v-menu>
 
 
 	<v-toolbar-title class="headline text-uppercase pa-4">
-		<v-card class="pa-2" color="rgb(0, 0, 0, 0.7)" >
-		<a id="link" href="/">
+		<v-card @click="$router.push({ name: 'podcast'}).catch(err => {})" class="pa-2" color="rgb(0, 0, 0, 0.7)" >
 			<span>WORLD &nbsp;</span>
 			<span class="font-weight-light">Podcast Show</span>
-		</a>
 		</v-card>
 	</v-toolbar-title>
 
@@ -62,8 +61,8 @@ export default {
 		return {
 			image: "https://picsum.photos/1920/1080?random",
 			items: [
-				{ title: 'Home', link: "/" },
-				{ title: 'Post podcast', link: "/admin-podcast" },
+				{ title: 'Home', link: '/'},
+				{ title: 'Post podcast', link: '/admin-podcast'}
 			],
 		}
 	},

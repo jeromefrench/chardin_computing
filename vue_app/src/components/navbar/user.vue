@@ -1,9 +1,7 @@
 <template>
 	<div v-if="connected">
-		My profile
-		<v-btn icon>
-			<v-icon @click="$router.push({ name: 'profile'})" >mdi-user</v-icon>
-		</v-btn>
+			<v-btn @click="$router.push({ name: 'profile'})">Profile</v-btn></br>
+			<v-btn @click="signOut()"  >Sign-out</v-btn></br>
 	</div>
 	<div v-else>
 		<v-btn @click="$router.push({ name: 'sign-in'})"   >Sign-in</v-btn></br>
@@ -43,6 +41,16 @@ export default {
 					console.log(error);
 				})
 		},
+		signOut(){
+			axios.get(process.env.VUE_APP_BACK_URL + '/sign-out')
+				.then((response)=> {
+					console.log(response.data);
+					EventBus.$emit('EVENT_NAME', 'hello');
+				})
+				.catch(function (error) {
+					console.log(error);
+				})
+		}
 	},
 	mounted: function() {
 	EventBus.$on('EVENT_NAME',(payLoad)=> {

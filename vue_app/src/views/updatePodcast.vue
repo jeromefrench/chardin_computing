@@ -127,7 +127,8 @@ export default {
 			axios.put(process.env.VUE_APP_BACK_URL + '/podcast/' + this.id, data)
 			.then((response)=> {
 				console.log(response.data);
-				this.getPodcast();
+				this.$router.push({ name: 'podcast'})
+				//this.getPodcast();
 			})
 			.catch(function (error) {
 				console.log(error);

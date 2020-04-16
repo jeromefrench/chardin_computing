@@ -140,6 +140,7 @@ export default {
 					}
 				})
 			.then((response)=> {
+				this.$router.push({ name: 'podcast'})
 			})
 			.catch(function (error) {
 				console.log(error);

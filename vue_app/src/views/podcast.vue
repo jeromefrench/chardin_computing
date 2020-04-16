@@ -52,7 +52,7 @@ export default {
 	},
 	methods: {
 		updatePodcast(id){
-			window.location.href = '/update-podcast/' + id;
+			this.$router.push({ name: 'update-podcast', params: { id: id } })
 		},
 		deletePodcast(id){
 			console.log("*************");
