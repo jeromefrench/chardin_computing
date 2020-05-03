@@ -19,10 +19,15 @@ middleware = {
 		next();
 	},
 	bodyParse: bodyParser.json(),
+	bodyParseUrl: bodyParser.urlencoded({ extended: true }),
 
 }
 
-module.exports = [middleware.cors, middleware.bodyParse];
+module.exports = [
+					middleware.cors,
+					middleware.bodyParse,
+					middleware.bodyParseUrl
+				];
 
 
 
