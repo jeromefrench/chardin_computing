@@ -12,10 +12,8 @@ module.exports = class controlerPodcast{
 
 	static async delete(req, res){
 		console.log(req.body);
-		console.log(req.body.id);
 		let podcast = await Podcast.findOne({where: { 'id': req.body.id }});
 		console.log(podcast);
-		console.log(podcast.pathName);
 		fs.unlinkSync(process.env.ASSETS_PATH + "/podcasts/" + podcast.pathName);
 		podcast.destroy();
 		res.send(req.body);
@@ -57,7 +55,6 @@ module.exports = class controlerPodcast{
 	}
 
 	static async get(req, res){
-		console.log("ici");
 		console.log(req.params);
 		let podcast = await Podcast.findOne({where: { 'id': req.params.idi }});
 		res.send(podcast);

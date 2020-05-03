@@ -5,7 +5,7 @@ const multer  = require('multer');
 const app = express();
 const router = require(SRC +'/router/index.js');
 const midleware = require(SRC +'/utils/middleware/index.js');
-let myPassport = require(SRC +'/utils/middleware/passport.js');
+const myPassport = require(SRC +'/utils/middleware/passport.js');
 
 /*DATA BASE*/
 const db = require(SRC + '/config/database.js');
@@ -22,12 +22,10 @@ app.use(function(req, res, next){
 	next();
 })
 
-
 app.options("/*",function(req, res){
 	console.log("options call");
 	res.send(200);
 });
-
 
 /*ROUTE*/
 app.get('/fail', (req, res) => { res.send('fail to log'); });
