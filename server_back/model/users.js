@@ -9,7 +9,7 @@ const User = db.define('user', {
 	mail: {
 		type: Sequelize.STRING
 	},
-	passord: {
+	password: {
 		type: Sequelize.STRING
 	},
 });

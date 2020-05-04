@@ -7,9 +7,6 @@ LocalStrategy = require('passport-local').Strategy;
 const User = require(SRC + '/model/users.js')
 
 passport.serializeUser((user, done)=> {
-	console.log("on serialize");
-	console.log(user);
-	console.log(user.id);
   	done(null, user.id);
 });
 
@@ -33,14 +30,11 @@ passport.use('local', new LocalStrategy(
     	passwordField: 'password'
   	},
   	async function(username, password, done) {
-      	console.log("strat local");
-
 		var verifyPassword = function () {
         	//return bCrypt.compareSync(password, userpass);
-        	console.log("On verifie le password");
+        	//console.log("On verifie le password");
     		return true;
     	}
-      	console.log("strat local");
 
     	let user = await User.findOne({where: { mail: username }});
       	// if (err) {
@@ -55,7 +49,6 @@ passport.use('local', new LocalStrategy(
       	  	console.log("on verigy");
       	  	return done(null, false, { message: 'Incorrect paswd.' }); 
       	}
-      	console.log("c'est ok");
       	// console.log(user.dataValues);
       	return done(null, user.dataValues);
   	}

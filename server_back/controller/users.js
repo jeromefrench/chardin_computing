@@ -6,9 +6,8 @@ module.exports = class controlerUsers{
 
 	static async create(req, res){
 		let {pseudo, mail, password} = req.body;
-		User.build({pseudo, mail, password}).save();
-		console.log(req.body);
-		res.send(req.body);
+		const user = await User.build({pseudo, mail, password}).save();
+		res.status(201).send(user.dataValues);
 	}
 
 	static async getProfile(req, res){
@@ -18,8 +17,7 @@ module.exports = class controlerUsers{
 
 	static async signIn(req, res){
 		//req.session.save(function(){
-			console.log(req.user);
-			res.send(req.user);
+			res.status(200).send(req.user);
 		//});
 	}
 

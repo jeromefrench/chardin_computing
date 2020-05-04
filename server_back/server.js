@@ -9,16 +9,17 @@ const myPassport = require(SRC +'/utils/middleware/passport.js');
 
 /*DATA BASE*/
 const db = require(SRC + '/config/database.js');
-db.sync({alter: true});
+//db.sync({alter: true}); //to create the db
+
 
 /*MIDDLEWARE*/
 app.use('/static', express.static(process.env.ASSETS_PATH));
 app.use(midleware.server);
 app.use(myPassport);
 app.use(function(req, res, next){
-	console.log("***************$*******************");
-	console.log(req.url);
-	console.log(req.method);
+	// console.log("***************$*******************");
+	// console.log(req.url);
+	// console.log(req.method);
 	next();
 })
 
@@ -57,3 +58,15 @@ app.use(function (err, req, res, next) {
 const PORT = process.env.BACK_PORT || 3000;
 console.log(`Server back listening on port ${PORT}`);
 app.listen(PORT);
+app.on('ready', function() { 
+    // app.listen(3000, function(){ 
+        console.log("app is ready"); 
+    // }); 
+});
+
+
+
+
+
+//for testing
+module.exports = app;

@@ -10,6 +10,20 @@ const multer  = require('multer');
 
 module.exports = class controlerPodcast{
 
+	static async create(req, res){
+		let {title, pathName, date, country, description} =  req.body;
+		const podcast = await Podcast.build({title, pathName, date, country,description}).save();
+		console.log("Le podcast ==>");
+		console.log(podcast);
+		//on transfert
+		fs.rename(process.env.ASSETS_PATH + '/podcasts/' + req.fileName, process.env.ASSETS_PATH + '/podcasts/' + pathName, function (err) {
+			if (err)
+				console.log(err);
+		});
+		res.send(req.body);
+	}
+
+
 	static async delete(req, res){
 		console.log(req.body);
 		let podcast = await Podcast.findOne({where: { 'id': req.body.id }});
@@ -33,16 +47,6 @@ module.exports = class controlerPodcast{
 		res.send(req.body);
 	}
 
-	static async create(req, res){
-		let {title, pathName, date, country, description} =  req.body;
-		Podcast.build({title, pathName, date, country,description}).save();
-		//on transfert
-		fs.rename(process.env.ASSETS_PATH + '/podcasts/' + req.fileName, process.env.ASSETS_PATH + '/podcasts/' + pathName, function (err) {
-			if (err)
-				console.log(err);
-		});
-		res.send(req.body);
-	}
 
 	static async list(req, res){
 		Podcast.findAll({order: [['date', 'ASC']]})
