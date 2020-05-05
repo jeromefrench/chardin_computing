@@ -15,13 +15,13 @@ const new_user = {
 	"password": "jpasswd"
 }
 
-	let agent;
+	let authenticatedUser;
 
 describe('User test', () => {
 
 
 	before(async () => {
-		agent = chai.request.agent(app);
+		authenticatedUser = chai.request.agent(app);
 		await db.drop(); //empty the db
 		await db.sync({alter: true}); //to create the db shema
 	})
@@ -30,7 +30,7 @@ describe('User test', () => {
 
 	describe('Create POST /user', () => {
 		it('Should return 201 and the user', (done) => {
-			agent
+			authenticatedUser
 				.post('/user')
 				.send(new_user)
 				.then((res) => {
@@ -51,7 +51,7 @@ describe('User test', () => {
 
 	describe('Sign in POST /user/sign-in', () => {
 		it('Should return 200 and the user', (done) => {
-			agent
+			authenticatedUser
 				.post('/user/sign-in')
 				.send(new_user)
 				.then((res) => {
@@ -73,7 +73,7 @@ describe('User test', () => {
 
 	describe('Return profile GET /user', () => {
 		it('Should return 200 and the user', (done) => {
-			agent
+			authenticatedUser
 				.get('/user')
 				.then((res) => {
 					expect(res).to.have.status(200);
