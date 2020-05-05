@@ -12,7 +12,6 @@ const multer  = require('multer');
 module.exports = {
 
 	validate: function(req, res, next){
-		console.log(req.body);
 		const errors = validationResult(req)
 		if (errors.isEmpty()) {
 			return next()
@@ -45,9 +44,7 @@ module.exports = {
 				cb(null, process.env.ASSETS_PATH + '/podcasts')
 			},
 			filename: function (req, file, cb) {
-				console.log("hehe");
 				req.fileName = Math.floor(Math.random() * 10000) + '-' + Date.now();
-				console.log(req.fileName);
 				//on enregistre un nom temporaire que lon save dand req
 				cb(null, req.fileName);
 			}

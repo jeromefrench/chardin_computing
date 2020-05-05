@@ -11,8 +11,7 @@ module.exports = class controlerUsers{
 	}
 
 	static async getProfile(req, res){
-		console.log(req.user);
-		res.send(req.user);
+		res.status(200).send(req.user);
 	}
 
 	static async signIn(req, res){

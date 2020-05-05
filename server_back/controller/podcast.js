@@ -13,14 +13,13 @@ module.exports = class controlerPodcast{
 	static async create(req, res){
 		let {title, pathName, date, country, description} =  req.body;
 		const podcast = await Podcast.build({title, pathName, date, country,description}).save();
-		console.log("Le podcast ==>");
-		console.log(podcast);
 		//on transfert
-		fs.rename(process.env.ASSETS_PATH + '/podcasts/' + req.fileName, process.env.ASSETS_PATH + '/podcasts/' + pathName, function (err) {
+		fs.rename(  process.env.ASSETS_PATH + '/podcasts/' + req.fileName,
+					process.env.ASSETS_PATH + '/podcasts/' + pathName, function (err) {
 			if (err)
 				console.log(err);
 		});
-		res.send(req.body);
+		res.status(201).send(podcast);
 	}
 
 

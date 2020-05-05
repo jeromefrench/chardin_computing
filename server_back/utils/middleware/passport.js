@@ -1,4 +1,3 @@
-console.log("ici passport");
 const passport = require('passport');
 var cookieSession = require('cookie-session');
 var cookieParser = require('cookie-parser');
@@ -11,11 +10,9 @@ passport.serializeUser((user, done)=> {
 });
 
 passport.deserializeUser(async (id, done)=> {
-	console.log("on deserialize");
-
 	try {
     	let user = await User.findOne({where: { id: id }});
-		console.log(id);
+		// console.log(id);
     	done(false, user.dataValues);
 
 	} catch (e) {
