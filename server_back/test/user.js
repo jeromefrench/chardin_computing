@@ -17,8 +17,7 @@ const new_user = {
 
 	let authenticatedUser;
 
-describe('User test', () => {
-
+describe('User basic test', () => {
 
 	before(async () => {
 		authenticatedUser = chai.request.agent(app);
@@ -37,6 +36,7 @@ describe('User test', () => {
 					expect(res.body).to.have.property('pseudo');
 					expect(res.body).to.have.property('mail');
 					expect(res.body).to.have.property('password');
+
 					expect(res.body.pseudo).to.be.equal("jspeudo");
 					expect(res.body.mail).to.be.equal("jmail");
 					expect(res.body.password).to.be.equal("jpasswd");

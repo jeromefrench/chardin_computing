@@ -24,4 +24,9 @@ module.exports = class controlerUsers{
 		req.logout();
 		res.status(200).send('You sign out');
 	}
+
+	static async fail(req, res){
+		res.status(401).send('fail to log');
+	}
+
 }

@@ -16,20 +16,10 @@ const db = require(SRC + '/config/database.js');
 app.use('/static', express.static(process.env.ASSETS_PATH));
 app.use(midleware.server);
 app.use(myPassport);
-app.use(function(req, res, next){
-	// console.log("***************$*******************");
-	// console.log(req.url);
-	// console.log(req.method);
-	next();
-})
 
-app.options("/*",function(req, res){
-	console.log("options call");
-	res.send(200);
-});
 
 /*ROUTE*/
-app.get('/fail', (req, res) => { res.send('fail to log'); });
+app.options("/*",function(req, res){ res.status(200).send('options call'); });
 app.get('/test', (req, res) => { res.send('test back'); });
 app.use('/podcast', router.podcast);
 app.use('/user', router.users);
@@ -54,14 +44,6 @@ app.use(function (err, req, res, next) {
 const PORT = process.env.BACK_PORT || 3000;
 console.log(`Server back listening on port ${PORT}`);
 app.listen(PORT);
-app.on('ready', function() { 
-    // app.listen(3000, function(){ 
-        console.log("app is ready"); 
-    // }); 
-});
-
-
-
 
 
 //for testing
