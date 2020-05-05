@@ -20,4 +20,8 @@ module.exports = class controlerUsers{
 		//});
 	}
 
+	static async signOut(req, res){
+		req.logout();
+		res.status(200).send('You sign out');
+	}
 }

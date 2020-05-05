@@ -42,7 +42,7 @@ export default {
 				})
 		},
 		signOut(){
-			axios.get(process.env.VUE_APP_BACK_URL + '/sign-out')
+			axios.get(process.env.VUE_APP_BACK_URL + '/user/sign-out')
 				.then((response)=> {
 					console.log(response.data);
 					EventBus.$emit('EVENT_NAME', 'hello');

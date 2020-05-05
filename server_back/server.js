@@ -30,10 +30,6 @@ app.options("/*",function(req, res){
 
 /*ROUTE*/
 app.get('/fail', (req, res) => { res.send('fail to log'); });
-app.get('/sign-out', (req, res) => {
-	req.logout();
-	res.send('You sign out');
-});
 app.get('/test', (req, res) => { res.send('test back'); });
 app.use('/podcast', router.podcast);
 app.use('/user', router.users);

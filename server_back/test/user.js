@@ -26,8 +26,6 @@ describe('User test', () => {
 		await db.sync({alter: true}); //to create the db shema
 	})
 
-
-
 	describe('Create POST /user', () => {
 		it('Should return 201 and the user', (done) => {
 			authenticatedUser
@@ -70,7 +68,6 @@ describe('User test', () => {
 		});
 	})
 
-
 	describe('Return profile GET /user', () => {
 		it('Should return 200 and the user', (done) => {
 			authenticatedUser
@@ -91,6 +88,18 @@ describe('User test', () => {
 		});
 	})
 
+	describe('Sign out GET /user/sign-out', () => {
+		it('Should return 200 and sign out', (done) => {
+			authenticatedUser
+				.get('/user/sign-out')
+				.then((res) => {
+					expect(res).to.have.status(200);
+					done();
+				}).catch(err => {
+					console.log(err.message);
+				})
+		});
+	})
 
 });
 
