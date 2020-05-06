@@ -9,15 +9,19 @@ const User = require(SRC + '/model/users.js')
 module.exports = {
 	validationPostRules: function(){
 		return [
-			check('pseudo').isString().bail().isLength({min: 3, max: 255}),
-			check('pseudo').custom(async (pseudo) => {
-				// console.log("+++");
-				let result = await User.isPseudoExist(pseudo);
-				// console.log(result);
-				if (result) {
-					throw new Error('Email already registered')
-				}
-			}),
+			check('pseudo')
+				.isString()
+				.withMessage('must be a string')
+				.bail()
+				.isLength({min: 3, max: 255})
+				.withMessage('must be at least 3 chars long'),
+			check('pseudo')
+				.custom(async (pseudo) => {
+					let result = await User.isPseudoExist(pseudo);
+					if (result) {
+						throw new Error('pseudo already registered')
+					}
+				}),
 			check('mail').isString().bail().isLength({min: 3, max: 255}),
 			check('password').isString().bail().isLength({min: 6, max: 255}),
 		]

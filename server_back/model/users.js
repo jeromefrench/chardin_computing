@@ -10,8 +10,6 @@ class User extends Model {
 	}
 	static async isPseudoExist(pseudo) {
 		const exist = await User.findOne({where: { 'pseudo': pseudo }});
-		// console.log("===exist====");
-		// console.log(exist);
 		if(exist == null)
 			return(false);
 		else

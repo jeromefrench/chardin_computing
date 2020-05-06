@@ -72,7 +72,7 @@ describe('User basic test', () => {
 		it('Should return 200 and the user', (done) => {
 			authenticatedUser
 				.get('/user')
-				.then((res) => {
+				.end((res, err) => {
 					expect(res).to.have.status(200);
 					expect(res.body).to.have.property('id');
 					expect(res.body).to.have.property('pseudo');

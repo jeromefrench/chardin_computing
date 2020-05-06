@@ -10,15 +10,16 @@ const User = require(SRC + '/model/users.js')
 
 chai.use(chaiHttp);
 
-const new_user = {
-	"pseudo": "jspeudo",
-	"mail": "jmail",
-	"password": "jpasswd"
-}
 
 describe('Create POST /user', () => {
 
+
 	let authenticatedUser;
+	let new_user = {
+			"pseudo": "jspeudo",
+			"mail": "jmail",
+			"password": "jpasswd"
+		}
 
 	before(async () => {
 		authenticatedUser = chai.request.agent(app);
@@ -38,8 +39,7 @@ describe('Create POST /user', () => {
 			authenticatedUser
 				.post('/user')
 				.send(new_user)
-				.then((res) => {
-					console.log(res.body);
+				.end((err, res) => {
 					expect(res).to.have.status(201);
 					expect(res.body).to.have.property('id');
 					expect(res.body).to.have.property('pseudo');
@@ -50,40 +50,57 @@ describe('Create POST /user', () => {
 					expect(res.body.mail).to.be.equal("jmail");
 					expect(res.body.password).to.be.equal("jpasswd");
 					done();
-				}).catch(err => {
-					console.log(err.message);
-				})
+				});
 		});
 	});
 
-	context('with speudo that already exist', function() {
-		it('Should return 400 and the error message', async () => {
-			try {
-				await authenticatedUser.post('/user').send(new_user);
-				res = await authenticatedUser.post('/user').send(new_user);
-				console.log(res.body);
-				expect(res).to.have.status(400);
-			} catch (err) {
-					console.log(err.message);
-			}
-		});
-
-	});
-
-	context('with speudo too short', function() {
+	context('with speudo not a string', function() {
 		it('Should return 400 and the error message', (done) => {
-			new_user.pseudo = "js";
+			let other_user = {...new_user};
+			other_user.pseudo = {test: 'test'};
 			authenticatedUser
 				.post('/user')
-				.send(new_user)
-				.then((res) => {
-					console.log(res.body);
+				.send(other_user)
+				.end((err, res) => {
 					expect(res).to.have.status(400);
+					expect(res.body.errors[0].pseudo).to.be.equal("must be a string ya");
 					done();
-				}).catch(err => {
-					console.log(err.message);
-				})
+				});
 		});
 	});
+
+	// context('with speudo too short < 3', function() {
+	// 	it('Should return 400 and the error message', (done) => {
+	// 		let other_user = new_user;
+	// 		console.log(new_user);
+	// 		other_user.pseudo = "js";
+	// 		console.log(new_user);
+	// 		authenticatedUser
+	// 			.post('/user')
+	// 			.send(other_user)
+	// 			.then((res) => {
+	// 				expect(res).to.have.status(400);
+	// 				expect(res.body.errors[0].pseudo).to.be.equal("must be at least 3 chars long");
+	// 				done();
+	// 			}).catch(err => {
+	// 				console.log(err.message);
+	// 			})
+	// 	});
+	// });
+
+	// context('with speudo that already exist', function() {
+	// 	it('Should return 400 and the error message', async () => {
+	// 		try {
+	// 			console.log(new_user);
+	// 			await authenticatedUser.post('/user').send(new_user);
+	// 			res = await authenticatedUser.post('/user').send(new_user);
+	// 			console.log(res.body);
+	// 			await expect(res.body.errors[0].pseudo).to.be.equal("must be at least 3 chars long");
+	// 			await expect(res).to.have.status(400);
+	// 		} catch (err) {
+	// 			console.log(err.message);
+	// 		}
+	// 	});
+	// });
 
 })
