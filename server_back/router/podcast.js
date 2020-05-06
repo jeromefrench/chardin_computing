@@ -9,10 +9,22 @@ let middlewarePost = [
 	midleware.podcast.auth
 ]
 
-router.get('/:idi', controller.podcast.get);
-router.get('/', controller.podcast.list);
-router.put('/:idi',midleware.podcast.auth, controller.podcast.update);
-router.post('/', middlewarePost,  controller.podcast.create);
-router.delete('/',midleware.podcast.auth, controller.podcast.delete);
+router.get('/:idi',
+	controller.podcast.get);
+
+router.get('/',
+	controller.podcast.list);
+
+router.put('/:idi',
+	midleware.podcast.auth,
+	controller.podcast.update);
+
+router.post('/',
+	middlewarePost,
+	controller.podcast.create);
+
+router.delete('/',
+	midleware.podcast.auth,
+	controller.podcast.delete);
 
 module.exports = router;

@@ -18,7 +18,7 @@ module.exports = {
 		}
 		const extractedErrors = []
 		errors.array().map(err => extractedErrors.push({ [err.param]: err.msg }))
-		return res.status(423).json({
+		return res.status(400).json({
 			errors: extractedErrors,
 		})
 	},
