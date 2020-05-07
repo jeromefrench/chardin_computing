@@ -6,14 +6,14 @@ LocalStrategy = require('passport-local').Strategy;
 const User = require(SRC + '/model/users.js')
 
 passport.serializeUser((user, done)=> {
-  	done(null, user.id);
+	done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done)=> {
 	try {
-    	let user = await User.findOne({where: { id: id }});
+		let user = await User.findOne({where: { id: id }});
 		// console.log(id);
-    	done(false, user.dataValues);
+		done(false, user.dataValues);
 
 	} catch (e) {
 		/* handle error */
@@ -23,32 +23,33 @@ passport.deserializeUser(async (id, done)=> {
 
 passport.use('local', new LocalStrategy(
 	{
-    	usernameField: 'mail',
-    	passwordField: 'password'
-  	},
-  	async function(username, password, done) {
+		usernameField: 'mail',
+		passwordField: 'password'
+	},
+	async function(username, password, done) {
 		var verifyPassword = function () {
-        	//return bCrypt.compareSync(password, userpass);
-        	//console.log("On verifie le password");
-    		return true;
-    	}
+			//return bCrypt.compareSync(password, userpass);
+			if (user.dataValues.password == password)
+				return true;
+			else
+				return false;
+		}
 
-    	let user = await User.findOne({where: { mail: username }});
-      	// if (err) {
-      	// 	  console.log(err);
-      	// 	  return done(err); }
-      	if (user == null) {
-      	  	console.log("pas de user");
-      	  	return done(null, false, { message: 'Incorrect username.' } );
-      	}
-      	//if (!user.verifyPassword(password)) { return done(null, false); }
-      	if (!verifyPassword()) {
-      	  	console.log("on verigy");
-      	  	return done(null, false, { message: 'Incorrect paswd.' }); 
-      	}
-      	// console.log(user.dataValues);
-      	return done(null, user.dataValues);
-  	}
+		let user = await User.findOne({where: { mail: username }});
+
+		// if (err) {
+		// 	console.log(err);
+		// 	return done(err);
+		// }
+		if (user == null) {
+			return done(null, false, { message: 'wrong mail' } );
+		}
+		if (!verifyPassword(user, password)) {
+			return done(null, false, { message: 'wrong password' }); 
+		}
+		// console.log(user.dataValues);
+		return done(null, user.dataValues);
+	}
 ));
 
 module.exports = [

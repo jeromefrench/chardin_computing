@@ -8,22 +8,24 @@ const db = require('../config/database.js');
 
 chai.use(chaiHttp);
 
-const new_user = {
-	"pseudo": "jspeudo",
-	"mail": "jmail",
-	"password": "jpasswd"
-}
-
-let agent;
 
 describe('Podcast test', () => {
+
+
+	let agent;
+	const new_user = {
+		"pseudo": "jspeudo",
+		"mail": "jmail@jmail.jj",
+		"password": "jpasswd"
+	}
 
 	before(async () => {
 		agent = chai.request.agent(app);
 		await db.drop(); //empty the db
 		await db.sync({alter: true}); //to create the db shema
-		await agent.post('/user').send(new_user);
-		await agent.post('/user/sign-in').send(new_user);
+		let res;
+		res = await agent.post('/user').send(new_user);
+		res = await agent.post('/user/sign-in').send(new_user);
 	})
 	// console.log(SRC + '/test/seed/Day 10.mp3');
 

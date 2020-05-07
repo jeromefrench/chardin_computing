@@ -12,6 +12,7 @@ const multer  = require('multer');
 module.exports = {
 
 	validate: function(req, res, next){
+
 		const errors = validationResult(req)
 		if (errors.isEmpty()) {
 			return next()
@@ -60,10 +61,14 @@ module.exports = {
 		]
 	},
 	auth: function(req, res, next){
-		if(req.user && (req.user.mail == "jmail" || req.user.mail == "arsene.daudier@yahoo.fr")   )
+		if(req.user && (req.user.mail == "jmail@jmail.jj" || req.user.mail == "arsene.daudier@yahoo.fr")   )
+		{
 			next();
+		}
 		else
+		{
 			res.send("need auth");
+		}
 	}
 
 }

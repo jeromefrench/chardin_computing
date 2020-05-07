@@ -8,7 +8,7 @@ const User = require(SRC + '/model/users.js')
 chai.use(chaiHttp);
 
 
-describe('Create POST /user', () => {
+describe('User create POST /user', () => {
 
 	let agent;
 	let new_user = {
@@ -144,4 +144,33 @@ describe('Create POST /user', () => {
 		});
 	});
 
+	context('with passwd not a string', function() {
+		let errorMessage = "passwd should be a string";
+		it(`Should return 400 and the error "${errorMessage}"`, (done) => {
+			let other_user = {...new_user};
+			agent
+				.post('/user')
+				.send(other_user)
+				.end((err, res) => {
+					// expect(res).to.have.status(400);
+					// expect(res.body.errors[0].passwd).to.be.equal(errorMessage);
+					done();
+				});
+		});
+	});
+
+	context('with password too short < 6', function() {
+		let errorMessage = "password must be at least 6 chars long"
+		it(`Should return 400 and the error "${errorMessage}"`, (done) => {
+			let other_user = {...new_user};
+			agent
+				.post('/user')
+				.send(other_user)
+				.end((err, res) => {
+					// expect(res).to.have.status(400);
+					// expect(res.body.errors[0].passwd).to.be.equal(errorMessage);
+					done();
+				});
+		});
+	});
 })
