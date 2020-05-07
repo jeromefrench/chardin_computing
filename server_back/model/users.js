@@ -10,10 +10,21 @@ class User extends Model {
 	}
 	static async isPseudoExist(pseudo) {
 		const exist = await User.findOne({where: { 'pseudo': pseudo }});
-		if(exist == null)
+		if(exist == null){
 			return(false);
-		else
+		}
+		else{
 			return(true);
+		}
+	}
+	static async isMailExist(mail) {
+		const exist = await User.findOne({where: { 'mail': mail }});
+		if(exist == null){
+			return(false);
+		}
+		else{
+			return(true);
+		}
 	}
 	instanceLevelMethod() {
 		return 'bar';

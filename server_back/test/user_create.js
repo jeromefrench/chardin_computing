@@ -5,24 +5,20 @@ let should = chai.should();
 const { expect } = require('chai')
 const db = require('../config/database.js');
 const User = require(SRC + '/model/users.js')
-
-//tester le cookie
-
 chai.use(chaiHttp);
 
 
 describe('Create POST /user', () => {
 
-
-	let authenticatedUser;
+	let agent;
 	let new_user = {
 			"pseudo": "jspeudo",
-			"mail": "jmail",
+			"mail": "jmail@jmail.jj",
 			"password": "jpasswd"
 		}
 
 	before(async () => {
-		authenticatedUser = chai.request.agent(app);
+		agent = chai.request.agent(app);
 		await db.drop(); //empty the db
 		await db.sync({alter: true}); //to create the db shema
 	})
@@ -35,8 +31,8 @@ describe('Create POST /user', () => {
 	})
 
 	context('with good arguments', function() {
-		it('Should return 201 and the user', (done) => {
-			authenticatedUser
+		it('Should return 201 and the user' + JSON.stringify(new_user) , (done) => {
+			agent
 				.post('/user')
 				.send(new_user)
 				.end((err, res) => {
@@ -47,7 +43,7 @@ describe('Create POST /user', () => {
 					expect(res.body).to.have.property('password');
 
 					expect(res.body.pseudo).to.be.equal("jspeudo");
-					expect(res.body.mail).to.be.equal("jmail");
+					expect(res.body.mail).to.be.equal("jmail@jmail.jj");
 					expect(res.body.password).to.be.equal("jpasswd");
 					done();
 				});
@@ -55,52 +51,97 @@ describe('Create POST /user', () => {
 	});
 
 	context('with speudo not a string', function() {
-		it('Should return 400 and the error message', (done) => {
+		let errorMessage = "speudo must be a string"
+		it(`Should return 400 and the error "${errorMessage}"`, (done) => {
 			let other_user = {...new_user};
 			other_user.pseudo = {test: 'test'};
-			authenticatedUser
+			agent
 				.post('/user')
 				.send(other_user)
 				.end((err, res) => {
 					expect(res).to.have.status(400);
-					expect(res.body.errors[0].pseudo).to.be.equal("must be a string ya");
+					expect(res.body.errors[0].pseudo).to.be.equal(errorMessage);
 					done();
 				});
 		});
 	});
 
-	// context('with speudo too short < 3', function() {
-	// 	it('Should return 400 and the error message', (done) => {
-	// 		let other_user = new_user;
-	// 		console.log(new_user);
-	// 		other_user.pseudo = "js";
-	// 		console.log(new_user);
-	// 		authenticatedUser
-	// 			.post('/user')
-	// 			.send(other_user)
-	// 			.then((res) => {
-	// 				expect(res).to.have.status(400);
-	// 				expect(res.body.errors[0].pseudo).to.be.equal("must be at least 3 chars long");
-	// 				done();
-	// 			}).catch(err => {
-	// 				console.log(err.message);
-	// 			})
-	// 	});
-	// });
+	context('with speudo too short < 3', function() {
+		let errorMessage = "speudo must be at least 3 chars long"
+		it(`Should return 400 and the error "${errorMessage}"`, (done) => {
+			let other_user = {...new_user};
+			other_user.pseudo = "js";
+			agent
+				.post('/user')
+				.send(other_user)
+				.end((err, res) => {
+					expect(res).to.have.status(400);
+					expect(res.body.errors[0].pseudo).to.be.equal(errorMessage);
+					done();
+				});
+		});
+	});
 
-	// context('with speudo that already exist', function() {
-	// 	it('Should return 400 and the error message', async () => {
-	// 		try {
-	// 			console.log(new_user);
-	// 			await authenticatedUser.post('/user').send(new_user);
-	// 			res = await authenticatedUser.post('/user').send(new_user);
-	// 			console.log(res.body);
-	// 			await expect(res.body.errors[0].pseudo).to.be.equal("must be at least 3 chars long");
-	// 			await expect(res).to.have.status(400);
-	// 		} catch (err) {
-	// 			console.log(err.message);
-	// 		}
-	// 	});
-	// });
+	context('with speudo that already exist', function() {
+		let errorMessage = "pseudo already registered";
+		it(`Should return 400 and the error "${errorMessage}"`, async () => {
+			try {
+				await agent.post('/user').send(new_user);
+				res = await agent.post('/user').send(new_user);
+				await expect(res).to.have.status(400);
+				expect(res.body.errors[0].pseudo).to.be.equal(errorMessage);
+			} catch (err) {
+				console.log(err.message);
+			}
+		});
+	});
+
+	context('with mail not a string', function() {
+		let errorMessage = "mail should be a string";
+		it(`Should return 400 and the error "${errorMessage}"`, (done) => {
+			let other_user = {...new_user};
+			other_user.mail = {hey: "you"};
+			agent
+				.post('/user')
+				.send(other_user)
+				.end((err, res) => {
+					expect(res).to.have.status(400);
+					expect(res.body.errors[0].mail).to.be.equal(errorMessage);
+					done();
+				});
+		});
+	});
+
+	context('with mail wrong format', function() {
+		let errorMessage = "mail wrong format";
+		it(`Should return 400 and the error "${errorMessage}"`, (done) => {
+			let other_user = {...new_user};
+			other_user.mail = "wrong@mail";
+			agent
+				.post('/user')
+				.send(other_user)
+				.end((err, res) => {
+					expect(res).to.have.status(400);
+					expect(res.body.errors[0].mail).to.be.equal(errorMessage);
+					done();
+				});
+		});
+	});
+
+	context('with mail already exist', function() {
+		let errorMessage = "mail already registered";
+		it(`Should return 400 and the error "${errorMessage}"`, async () => {
+			try {
+				await agent.post('/user').send(new_user);
+				let other_user = {...new_user};
+				other_user.pseudo = "new_speudo";
+				res = await agent.post('/user').send(other_user);
+				expect(res).to.have.status(400);
+				expect(res.body.errors[0].mail).to.be.equal(errorMessage);
+			} catch (err) {
+				console.log(err.message);
+			}
+		});
+	});
 
 })
