@@ -1,6 +1,7 @@
+require('module-alias/register');
 let chai = require('chai');
 let chaiHttp = require('chai-http');
-let app = require('../server.js');
+let app = require('@root/server.js');
 let should = chai.should();
 const fs = require('fs');
 const { expect } = require('chai')
