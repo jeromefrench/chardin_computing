@@ -2,8 +2,12 @@ const router = require('express').Router();
 const controller = require('@root/controller/index.js');
 const midleware = require('@root/utils/middleware/index.js');
 const passport = require('passport');
+const requireAAA = require('@root/utils/middleware/auth.js');
+
+
 
 router.get('/',
+	requireAAA,
 	controller.users.getProfile);
 
 router.post('/',

@@ -47,6 +47,7 @@ passport.use('local', new LocalStrategy(
 		if (!verifyPassword(user, password)) {
 			return done(null, false, { message: 'wrong password' }); 
 		}
+		console.log("il a passe l'etape local strategie");
 		return done(null, user.dataValues);
 	}
 ));

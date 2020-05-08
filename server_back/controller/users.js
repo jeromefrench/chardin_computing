@@ -5,28 +5,49 @@ const passport = require('passport');
 module.exports = class controlerUsers{
 
 	static async create(req, res){
+		console.log("On creer le user");
 		let {pseudo, mail, password} = req.body;
 		const user = await User.build({pseudo, mail, password}).save();
 		res.status(201).send(user.dataValues);
 	}
 
 	static async getProfile(req, res){
+		console.log("On donne le profile");
 		res.status(200).send(req.user);
 	}
 
 	static async signIn(req, res, next){
-		//req.session.save(function(){
-		//});
+		// req.session.save(function(){
+		// });
 
 		passport.authenticate('local', function(err, user, info) {
-			if (err) { return next(err); }
-			if (!user) { 
+			if (err) {
+				console.log("&&&&&&&&&&&&&&&&&&&&");
+				console.log(err);
+				return next(err);
+			}
+			if (!user) {
+				console.log("*************************************");
+				console.log(info.message);
 				res.status(400).send({error: info.message});
 				return;
 			}
-			res.status(200).send(user);
-			return next();
+			else{
+				req.login(user, function (err) {
+					if(err) {
+						console.log(err);
+						return;
+					}
+					console.log("sucess sign in");
+					res.status(200).send(user);
+					// res.redirect('/');
+				});
+			}
+			// return next();
 		})(req, res, next);
+
+		// console.log("ico ico");
+		// res.send("okiiiiiiii");
 	}
 
 	static async signOut(req, res){
@@ -35,6 +56,7 @@ module.exports = class controlerUsers{
 	}
 
 	static async fail(req, res){
+		console.log("ici fail");
 		res.status(401).send('fail to log');
 	}
 

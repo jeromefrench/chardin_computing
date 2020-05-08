@@ -3,4 +3,4 @@ const server  = require('./server.js');
 const user  = require('./users.js');
 
 
-module.exports = {user, podcast, server};
+module.exports = { user, podcast, server};
