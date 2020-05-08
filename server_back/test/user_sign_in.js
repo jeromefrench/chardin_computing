@@ -50,6 +50,70 @@ describe('User sign-in POST /user/sign-in', () => {
 		});
 	});
 
+	context('with mail not a string', function() {
+		let errorMessage = "mail should be a string";
+		it(`Should return 400 and the error "${errorMessage}"`, (done) => {
+			let other_user = {...new_user};
+			other_user.mail = {hello: "you"};
+			agent
+				.post('/user/sign-in')
+				.send(other_user)
+				.end((err, res) => {
+					expect(res).to.have.status(400);
+					expect(res.body.errors[0].mail).to.be.equal(errorMessage);
+					done();
+				});
+		});
+	});
+
+	context('with mail wrong format', function() {
+		let errorMessage = "mail wrong format";
+		it(`Should return 400 and the error "${errorMessage}"`, (done) => {
+			let other_user = {...new_user};
+			other_user.mail = "ok.boomer";
+			agent
+				.post('/user/sign-in')
+				.send(other_user)
+				.end((err, res) => {
+					expect(res).to.have.status(400);
+					expect(res.body.errors[0].mail).to.be.equal(errorMessage);
+					done();
+				});
+		});
+	});
+
+	context('with password not a string', function() {
+		let errorMessage = "passwd should be a string";
+		it(`Should return 400 and the error "${errorMessage}"`, (done) => {
+			let other_user = {...new_user};
+			other_user.password = {hello: "you"};
+			agent
+				.post('/user/sign-in')
+				.send(other_user)
+				.end((err, res) => {
+					expect(res).to.have.status(400);
+					expect(res.body.errors[0].password).to.be.equal(errorMessage);
+					done();
+				});
+		});
+	});
+
+	context('with password too short', function() {
+		let errorMessage = "passwd must be at least 6 chars long";
+		it(`Should return 400 and the error "${errorMessage}"`, (done) => {
+			let other_user = {...new_user};
+			other_user.password = "short";
+			agent
+				.post('/user/sign-in')
+				.send(other_user)
+				.end((err, res) => {
+					expect(res).to.have.status(400);
+					expect(res.body.errors[0].password).to.be.equal(errorMessage);
+					done();
+				});
+		});
+	});
+
 	context('with wrong mail', function() {
 		let errorMessage = "wrong mail";
 		it(`Should return 400 and the error "${errorMessage}"`, (done) => {
@@ -59,8 +123,6 @@ describe('User sign-in POST /user/sign-in', () => {
 				.post('/user/sign-in')
 				.send(other_user)
 				.end((err, res) => {
-					console.log("cccoookkkie");
-					console.log(res.cookies);
 					expect(res).to.have.status(400);
 					expect(res.body.error).to.be.equal(errorMessage);
 					done();

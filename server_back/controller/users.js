@@ -19,16 +19,8 @@ module.exports = class controlerUsers{
 		//});
 
 		passport.authenticate('local', function(err, user, info) {
-			// console.log(res.header);
-			// console.log("err");
-			// console.log(err);
-			// console.log("user");
-			// console.log(user);
-			// console.log("info");
-			// console.log(info);
 			if (err) { return next(err); }
 			if (!user) { 
-				//chaine de caractere marche pas
 				res.status(400).send({error: info.message});
 				return;
 			}

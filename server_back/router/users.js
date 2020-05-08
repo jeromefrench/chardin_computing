@@ -12,6 +12,8 @@ router.post('/',
 	controller.users.create);
 
 router.post('/sign-in',
+	midleware.user.validationSignInRules(),
+	midleware.user.validate,
 	controller.users.signIn);
 
 router.get('/sign-out',
