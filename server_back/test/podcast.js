@@ -41,7 +41,7 @@ describe('Podcast test', () => {
 				.field('date', '2020-05-05')
 				.field('country', 'country_test')
 				.field('description', 'description_test')
-				.attach('avatar', fs.readFileSync(SRC + '/test/seed/Day 10.mp3'), 'Day 10.mp3')
+				.attach('avatar', fs.readFileSync('@root/test/seed/Day 10.mp3'), 'Day 10.mp3')
 				.end((err, res) => {
 					res.should.have.status(201);
 					done();

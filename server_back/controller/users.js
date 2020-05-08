@@ -1,5 +1,5 @@
 const express = require('express');
-const User = require(SRC + '/model/users.js')
+const User = require('@root/model/users.js')
 const passport = require('passport');
 
 module.exports = class controlerUsers{

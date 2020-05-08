@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-let app = require(SRC + '/server.js');
+let app = require('@root/server.js');
 require('dotenv').config();
 
 

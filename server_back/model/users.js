@@ -1,6 +1,6 @@
 // const Sequelize = require('sequelize');
 const { Sequelize, DataTypes, Model } = require('sequelize');
-const db = require(SRC + '/config/database.js');
+const db = require('@root/config/database.js');
 // const sequelize = new Sequelize('sqlite::memory');
 
 

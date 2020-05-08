@@ -1,14 +1,14 @@
-SRC = __dirname;
+require('module-alias/register');
 require('dotenv').config();
 const express = require('express');
 const multer  = require('multer');
 const app = express();
-const router = require(SRC +'/router/index.js');
-const midleware = require(SRC +'/utils/middleware/index.js');
-const myPassport = require(SRC +'/utils/middleware/passport.js');
+const router = require('@root/router/index.js');
+const midleware = require('@root/utils/middleware/index.js');
+const myPassport = require('@root/utils/middleware/passport.js');
 
 /*DATA BASE*/
-const db = require(SRC + '/config/database.js');
+const db = require('@root/config/database.js');
 //db.sync({alter: true}); //to create the db
 
 

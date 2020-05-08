@@ -3,7 +3,7 @@ var cookieSession = require('cookie-session');
 var cookieParser = require('cookie-parser');
 LocalStrategy = require('passport-local').Strategy;
 
-const User = require(SRC + '/model/users.js')
+const User = require('@root/model/users.js')
 
 passport.serializeUser((user, done)=> {
 	done(null, user.id);

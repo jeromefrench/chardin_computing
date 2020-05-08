@@ -2,9 +2,9 @@ require('dotenv').config();
 const express = require('express');
 var router = express.Router();
 const fs = require('fs');
-const db = require(SRC + '/config/database.js');
+const db = require('@root/config/database.js');
 const { check, validationResult } = require('express-validator')
-const User = require(SRC + '/model/users.js')
+const User = require('@root/model/users.js')
 
 module.exports = {
 	validationPostRules: function(){

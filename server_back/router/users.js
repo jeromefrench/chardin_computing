@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const controller = require(SRC +'/controller/index.js');
-const midleware = require(SRC +'/utils/middleware/index.js');
+const controller = require('@root/controller/index.js');
+const midleware = require('@root/utils/middleware/index.js');
 const passport = require('passport');
 
 router.get('/',
