@@ -45,9 +45,8 @@ passport.use('local', new LocalStrategy(
 			return done(null, false, { message: 'wrong mail' } );
 		}
 		if (!verifyPassword(user, password)) {
-			return done(null, false, { message: 'wrong password' }); 
+			return done(null, false, { message: 'wrong password' });
 		}
-		console.log("il a passe l'etape local strategie");
 		return done(null, user.dataValues);
 	}
 ));
