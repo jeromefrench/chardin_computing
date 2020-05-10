@@ -1,0 +1,9 @@
+BACK_PORT=3000
+DB_NAME=podcast_show
+DB_USER=**fill-your-user***
+DB_PASSWD=**fill-your-password**
+DB_HOST=localhost
+ASSETS_PATH=/var/www/chardin_computing_assets
+FRONT_URL=http://podcast-show.fun
+
+
