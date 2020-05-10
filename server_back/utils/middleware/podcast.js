@@ -2,9 +2,9 @@ require('dotenv').config();
 const express = require('express');
 var router = express.Router();
 const fs = require('fs');
-const db = require(SRC + '/config/database.js');
+const db = require('@root/config/database.js');
 const { check, validationResult } = require('express-validator')
-const Podcast = require(SRC + '/model/podcast.js')
+const Podcast = require('@root/model/podcast.js')
 const multer  = require('multer');
 
 
@@ -12,14 +12,14 @@ const multer  = require('multer');
 module.exports = {
 
 	validate: function(req, res, next){
-		console.log(req.body);
+
 		const errors = validationResult(req)
 		if (errors.isEmpty()) {
 			return next()
 		}
 		const extractedErrors = []
 		errors.array().map(err => extractedErrors.push({ [err.param]: err.msg }))
-		return res.status(423).json({
+		return res.status(400).json({
 			errors: extractedErrors,
 		})
 	},
@@ -45,9 +45,7 @@ module.exports = {
 				cb(null, process.env.ASSETS_PATH + '/podcasts')
 			},
 			filename: function (req, file, cb) {
-				console.log("hehe");
 				req.fileName = Math.floor(Math.random() * 10000) + '-' + Date.now();
-				console.log(req.fileName);
 				//on enregistre un nom temporaire que lon save dand req
 				cb(null, req.fileName);
 			}
@@ -63,10 +61,14 @@ module.exports = {
 		]
 	},
 	auth: function(req, res, next){
-		if(req.user && (req.user.mail == "jmail" || req.user.mail == "arsene.daudier@yahoo.fr")   )
+		if(req.user && (req.user.mail == "jmail@jmail.jj" || req.user.mail == "arsene.daudier@yahoo.fr")   )
+		{
 			next();
+		}
 		else
+		{
 			res.send("need auth");
+		}
 	}
 
 }

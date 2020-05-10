@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const controller = require(SRC +'/controller/index.js');
-const midleware = require(SRC +'/utils/middleware/index.js');
+const controller = require('@root/controller/index.js');
+const midleware = require('@root/utils/middleware/index.js');
 
 let middlewarePost = [
 	midleware.podcast.testa,
@@ -9,10 +9,22 @@ let middlewarePost = [
 	midleware.podcast.auth
 ]
 
-router.get('/:idi', controller.podcast.get);
-router.get('/', controller.podcast.list);
-router.put('/:idi',midleware.podcast.auth, controller.podcast.update);
-router.post('/', middlewarePost,  controller.podcast.create);
-router.delete('/',midleware.podcast.auth, controller.podcast.delete);
+router.get('/:idi',
+	controller.podcast.get);
+
+router.get('/',
+	controller.podcast.list);
+
+router.put('/:idi',
+	midleware.podcast.auth,
+	controller.podcast.update);
+
+router.post('/',
+	middlewarePost,
+	controller.podcast.create);
+
+router.delete('/',
+	midleware.podcast.auth,
+	controller.podcast.delete);
 
 module.exports = router;

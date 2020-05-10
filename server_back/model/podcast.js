@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const db = require(SRC + '/config/database.js');
+const db = require('@root/config/database.js');
 
 
 const Podcast = db.define('podcast', {
